@@ -16,15 +16,15 @@ Commands are lists of terms that normally start with an atom such as `:set`. The
 * `[:set, :xtics, :off]`
 * `~w(set xtics off)a`
 
-and both convert to `set xtics off;`.
+and both convert to `set xtics off`.
 
-Strings are output inside single quotes, and charlists are output without modification:
+Strings are output inside double quotes, and charlists are output without modification:
 
 ```elixir
 [:plot, 'sin(x)', :title, "Sine Wave"]
 ```
 
-becomes: `plot sin(x) title 'Sine Wave'`
+becomes: `plot sin(x) title "Sine Wave"`
 
 A dataset is a list of points, each point is a list of numbers.
 
@@ -64,8 +64,8 @@ G.plot([
   ]
   ], 
   [
-        for(n <- 0..1000, do: [n, n * :rand.uniform()]),
-        for(n <- 0..1000, do: [n, n * :rand.normal()])
+        for(n <- 0..200, do: [n, n * :rand.uniform()]),
+        for(n <- 0..200, do: [n, n * :rand.normal()])
   ])
 ```
 

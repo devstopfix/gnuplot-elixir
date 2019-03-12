@@ -22,7 +22,7 @@ defmodule GnuplotTest do
   end
 
   test "Strings and literals" do
-    assert "plot sin(x) title 'Sine Wave'" == C.format([[:plot, 'sin(x)', :title, "Sine Wave"]])
+    assert "plot sin(x) title \"Sine Wave\"" == C.format([[:plot, 'sin(x)', :title, "Sine Wave"]])
   end
 
   test "Plot range" do
@@ -30,11 +30,11 @@ defmodule GnuplotTest do
   end
 
   test "Title string" do
-    assert "set title 'simple'" == C.format([[:set, :title, "simple"]])
+    assert "set title \"simple space\"" == C.format([[:set, :title, "simple space"]])
   end
 
   test "Title apostrophe" do
-    assert "set title 'simple\\'s'" == C.format([[:set, :title, "simple's"]])
+    assert "set title \"simple's\"" == C.format([[:set, :title, "simple's"]])
   end
 
   @tag gnuplot: true
@@ -46,7 +46,7 @@ defmodule GnuplotTest do
   @tag gnuplot: true
   test "Simple plot" do
     plot = [[:plot, G.list(["-", :with, :lines])]]
-    expected = "plot '-' with lines"
+    expected = "plot \"-\" with lines"
     assert {:ok, expected} == G.plot(plot, [[[0, 0], [1, 2], [2, 4]]])
   end
 

@@ -21,7 +21,7 @@ defmodule Gnuplot.Commands do
   end
 
   defimpl Command, for: BitString do
-    def formatg(s) when is_binary(s), do: "'" <> String.replace(s, "'", "\\'") <> "'"
+    def formatg(s) when is_binary(s), do: "\"" <> String.replace(s, "\"", "'") <> "\""
   end
 
   defimpl Command, for: Range do
