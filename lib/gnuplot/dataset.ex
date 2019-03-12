@@ -14,7 +14,7 @@ defmodule Gnuplot.Dataset do
   @doc """
   Convert a list of datasets.
 
-  A dataset is a list of rows, each row is a list of numbers.
+  A dataset is a list of points, each point is a list of numbers.
   """
   @spec format_datasets(list(t())) :: [String.t()]
   def format_datasets(datasets) do

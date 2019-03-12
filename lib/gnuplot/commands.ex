@@ -39,6 +39,7 @@ defmodule Gnuplot.Commands do
   end
 
   defmodule List do
+    @moduledoc "Comma separated lists"
     defstruct xs: []
   end
 
