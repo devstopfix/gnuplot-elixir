@@ -64,12 +64,18 @@ defmodule GnuplotTest do
   # end
 
   test "Write PNG" do
-    {tmp, 0} = System.cmd("mktemp")
+    {tmp, 0} = System.cmd("mktemp", [])
     png = String.trim_trailing(tmp, "\n") <> ".PNG"
 
-    # assert {:ok, _} == G.plot([
-    #   # [:a, :=, 0.9],
-    #   [:plot, G.list(["-", :with, :lines])]], [])
+    assert {:ok, _} = G.plot([
+      [:set, :term, :png],
+      [:set, :output, png],
+      [:plot, G.list(["-", :with, :lines])]], [[[0,0], [1,1]]])
+
+    assert Enum.any?(1..10, fn _ ->
+      :timer.sleep(10)
+      File.exists?(png)
+    end)
 
   end
 
