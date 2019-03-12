@@ -28,6 +28,9 @@ defmodule Gnuplot do
     end
   end
 
+  @spec plot(list(term())) :: {:ok, String.t()} | {:error, term()}
+  def plot(commands), do: plot(commands, [])
+
   def list(a), do: %Commands.List{xs: [a]}
   def list(a, b), do: %Commands.List{xs: [a, b]}
 

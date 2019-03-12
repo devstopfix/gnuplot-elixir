@@ -71,14 +71,23 @@ G.plot([
 
 ![uniform-vs-rand](docs/rand.PNG)
 
-### Plot a function
+### Plot functions without datasets
 
 ```elixir
-G.plot([[:plot, 'sin(x)', :title, "Sine Wave"]], [])
+G.plot([[:plot, 'sin(x)', :title, "Sine Wave"]])
 ```
 
 ![rand](docs/sine.PNG)
 
+```elixir
+G.plot([
+        ~w(set autoscale)a,
+        ~w(set samples 800)a,
+        [:plot, '[-30:20]', 'sin(x*20)*atan(x)']
+])
+```
+
+![rand](docs/atan_sin.PNG)
 
 ## Installation
 

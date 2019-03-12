@@ -5,7 +5,7 @@ defmodule Mix.Tasks.Gnuplot.Plots do
 
   alias Gnuplot, as: G
 
-  defp plot_file(target, cmds, datasets) do
+  defp plot_file(target, cmds, datasets \\ []) do
     cmdf =
       Enum.concat(
         [[:set, :term, :png, :size, '512,256'], [:set, :output, target]],
@@ -45,13 +45,28 @@ defmodule Mix.Tasks.Gnuplot.Plots do
           :title,
           "Sine Wave"
         ]
-      ],
-      []
+      ]
+    )
+  end
+
+  defp atan_sin do
+    plot_file(
+      "docs/atan_sin.PNG",
+      [
+        ~w(set autoscale)a,
+        ~w(set samples 800)a,
+        [
+          :plot,
+          '[-30:20]',
+          'sin(x*20)*atan(x)'
+        ]
+      ]
     )
   end
 
   @shortdoc "Generate plots of the README"
   def run(_) do
+    atan_sin()
     rand()
     sine()
   end
