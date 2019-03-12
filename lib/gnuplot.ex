@@ -1,18 +1,34 @@
 defmodule Gnuplot do
   @moduledoc """
-  Documentation for Gnuplot.
+  Transmit Elixir data to Gnuplot graphing library.
   """
 
   @doc """
-  Hello world.
+  Transmit commands and data streams.
 
   ## Examples
 
-      iex> Gnuplot.hello()
-      :world
+      iex> Gnuplot.plot()
+      :error
 
   """
-  def hello do
-    :world
+  def plot(_commands, _datasets) do
+    # with
+    #   {:ok, path} <- gnuplot_bin()
+    # do
+    #   1 + 2
+    # else
+    #   e -> e
+    # end
   end
+
+  def list(_xs), do: []
+
+  def gnuplot_bin do
+    case System.find_executable("gnuplot") do
+      nil -> {:error, :gnuplot_missing}
+      path -> {:ok, path}
+    end
+  end
+
 end
