@@ -11,6 +11,7 @@ defmodule Gnuplot.MixProject do
       source_url: "https://github.com/devstopfix/gnuplot-elixir",
       dialyzer: [
         flags: [],
+        plt_add_apps: [:mix],
         remove_defaults: [:unknown]
       ]
     ]
