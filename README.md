@@ -112,11 +112,11 @@ be found at [https://hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
 
 Some tests create plots which require `gnuplot` to be installed. They can be be excluded with:
 
-    mix test.watch --exclude gnuplot:true
+    mix test --exclude gnuplot:true
 
 ## Performance
 
-The performance of the library is comparable to the Clojure version when `gnuplot` plots to a GUI. It is a little faster when writing directly to a PNG. All times in milliseconds from cold starts of the VM:
+The performance of the library is comparable to the Clojure version when `gnuplot` draws to a GUI. It is a little faster when writing directly to a PNG. The times below are in milliseconds. Each plot was made in increasing order of the number of points and after a cold start of the VM.
 
 | Points | Clojure GUI | Elixir GUI | Elixir PNG |
 | -----: | ----------: | ---------: | ---------: |
