@@ -28,10 +28,13 @@ Original design ©2015 [Kyle Kingsbury][2].
 
 Elixir code ©2019 [DEVSTOPFIX LTD][3].
 
-Distributed under the [Eclipse Public License v2][https://www.eclipse.org/legal/epl-2.0/].
+Distributed under the [Eclipse Public License v2][6].
+
+
 
 [1]: http://www.gnuplot.info/
 [2]: https://github.com/aphyr
 [3]: http://www.devstopfix.com/
 [4]: https://github.com/aphyr/gnuplot
 [5]: http://erlang.org/doc/reference_manual/ports.html
+[6]: https://www.eclipse.org/legal/epl-2.0/
