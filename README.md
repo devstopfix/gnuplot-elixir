@@ -93,13 +93,13 @@ NB [ranges](https://hexdocs.pm/elixir/Range.html) can be used
 
 ## Installation
 
-When [available in Hex](https://hex.pm/docs/publish), the package can be installed
+This library is [available in Hex](https://hex.pm/packages/gnuplot), the package can be installed
 by adding `gnuplot` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.70"}
+    {:gnuplot, "~> 0.19.71"}
   ]
 end
 ```
