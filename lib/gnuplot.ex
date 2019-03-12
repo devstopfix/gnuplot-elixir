@@ -6,7 +6,6 @@ defmodule Gnuplot do
   alias Gnuplot.Commands
   import Gnuplot.Datasets
 
-
   @doc """
   Transmit commands and data streams.
 
