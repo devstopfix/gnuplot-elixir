@@ -31,6 +31,8 @@ defmodule Gnuplot.Commands do
   end
 
   defimpl Command, for: List do
+    def formatg(xs)
+
     def formatg(xs) do
       xs
       |> Enum.map(fn cmd -> Command.formatg(cmd) end)

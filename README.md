@@ -13,6 +13,13 @@ The `plot` function takes two arguments:
 
 A dataset is a list of points, each point is a list of numbers.
 
+Commands are lists of terms that normally start with an atom such as `:set`. They may be written as lists or [Word lists](https://elixir-lang.org/getting-started/sigils.html#word-lists) - the following lines are equivalent:
+
+* `[:set, :xtics, :off]`
+* `~w(set xtics off)a`
+
+and both convert to `set xtics off;`.
+
 ### Scatter plot with a single dataset
 
 Lets compare the [rand functions](http://erlang.org/doc/man/rand.html):

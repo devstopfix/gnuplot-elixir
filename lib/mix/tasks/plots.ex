@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.Plots do
   use Mix.Task
 
+  @moduledoc false
+
   alias Gnuplot, as: G
 
   defp plot_file(target, cmds, datasets) do

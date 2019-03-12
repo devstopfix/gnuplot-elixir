@@ -12,6 +12,11 @@ defmodule GnuplotTest do
              C.format([[:set, :xtics, :off], [:set, :ytics, :off]])
   end
 
+  test "Word sigil" do
+    assert "set xtics off;\nset ytics off" ==
+             C.format([~w(set xtics off)a, ~w(set ytics off)a])
+  end
+
   test "Plot range" do
     assert "plot [0:5]" == C.format([[:plot, 0..5]])
   end
@@ -67,16 +72,15 @@ defmodule GnuplotTest do
     {tmp, 0} = System.cmd("mktemp", [])
     png = String.trim_trailing(tmp, "\n") <> ".PNG"
 
-    assert {:ok, _} = G.plot([
-      [:set, :term, :png],
-      [:set, :output, png],
-      [:plot, G.list(["-", :with, :lines])]], [[[0,0], [1,1]]])
+    assert {:ok, _} =
+             G.plot(
+               [[:set, :term, :png], [:set, :output, png], [:plot, G.list(["-", :with, :lines])]],
+               [[[0, 0], [1, 1]]]
+             )
 
     assert Enum.any?(1..10, fn _ ->
-      :timer.sleep(10)
-      File.exists?(png)
-    end)
-
+             :timer.sleep(10)
+             File.exists?(png)
+           end)
   end
-
 end
