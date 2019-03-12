@@ -31,6 +31,31 @@ Gnuplot will by default open a window containing your plot.
 
 ![rand](docs/window.png)
 
+### PNG of two datasets
+
+Write two datasets to a file:
+
+```elixir
+G.plot([
+  [:set, :term, :png], 
+  [:set, :output, "/tmp/rand.png"]
+  [:set, :title, "rand uniform vs normal"],
+  [:set, :key, :left, :top],
+  [:plot,
+    G.list(
+      ["-", :title, "uniform", :with, :points],
+      ["-", :title, "normal", :with, :points]
+    )
+  ]
+  ], 
+  [
+        for(n <- 0..1000, do: [n, n * :rand.uniform()]),
+        for(n <- 0..1000, do: [n, n * :rand.normal()])
+  ])
+```
+
+![uniform-vs-rand](docs/rand.PNG)
+
 ## Installation
 
 When [available in Hex](https://hex.pm/docs/publish), the package can be installed
