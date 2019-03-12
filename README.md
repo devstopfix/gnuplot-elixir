@@ -1,6 +1,6 @@
 # Gnuplot Elixir
 
-A simple interface from Elixir data structures to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit chart data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can easily plot 500k points in 20 seconds on a 2.2 GHz Intel Core i7.
+A simple interface from Elixir data structures to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit chart data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot 500K points in 20 seconds on a 2.2 GHz Intel Core i7.
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 
@@ -52,9 +52,9 @@ Write two datasets to a file:
 
 ```elixir
 G.plot([
-  [:set, :term, :png], 
   [:set, :output, "/tmp/rand.png"]
   [:set, :title, "rand uniform vs normal"],
+  [:set, :term, :png], 
   [:set, :key, :left, :top],
   [:plot,
     G.list(
@@ -114,22 +114,22 @@ Some tests create plots which require `gnuplot` to be installed. They can be be 
 
 ## Performance
 
-The performance of the library is comparable to the Clojure version when `gnuplot` plots to a GUI. It is a little faster when writing directly to a PNG.
+The performance of the library is comparable to the Clojure version when `gnuplot` plots to a GUI. It is a little faster when writing directly to a PNG. All times in milliseconds from cold starts of the VM:
 
 | Points | Clojure GUI | Elixir GUI | Elixir PNG |
 | -----: | ----------: | ---------: | ---------: |
-|      1 |        1487 |          5 |          2 |
-|     10 |        1397 |         10 |         10 |
-|    100 |        1400 |          4 |         49 |
-|    1e3 |        1381 |         59 |         40 |
-|    1e4 |        1440 |        939 |        349 |
-|    1e5 |        5784 |       5801 |       4091 |
-|    1e6 |       49275 |      43464 |      41521 |
+|      1 |       1,487 |          5 |          2 |
+|     10 |       1,397 |         10 |         10 |
+|    1e2 |       1,400 |          4 |         49 |
+|    1e3 |       1,381 |         59 |         40 |
+|    1e4 |       1,440 |        939 |        349 |
+|    1e5 |       5,784 |      5,801 |      4,091 |
+|    1e6 |      49,275 |     43,464 |     41,521 |
 
 ![performance](docs/speed.PNG)
 
 ```elixir
-points      = [1, 10, 100, 1000, 10000, 100000, 1000000]
+points      = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
 clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
 elixir_gui  = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
 elixir_png  = [0.002, 0.010, 0.049, 0.040, 0.349, 4.091, 41.521]
@@ -147,8 +147,8 @@ G.plot([
   ~w(set style line 3 lw 4 lc '#732C7B')a,
   [:plot, G.list(
       ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
-      ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
-      ["-", :title, "Elixir PNG", :with, :lines, :ls, 3]
+      ["-", :title, "Elixir GUI",  :with, :lines, :ls, 2],
+      ["-", :title, "Elixir PNG",  :with, :lines, :ls, 3]
   )]], datasets
 ])
 ```
