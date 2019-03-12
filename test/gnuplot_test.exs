@@ -7,7 +7,7 @@ defmodule GnuplotTest do
     assert File.exists?(path)
   end
 
-  # test "Simple plot" do
-  #   assert {:ok, cmd} = G.plot([:plot, G.list(["-", :with, :lines])], [[[0, 0], [1, 2], [2, 4]]])
-  # end
+  test "Simple plot" do
+    assert {:ok, cmd} = G.plot([:plot, G.list(["-", :with, :lines])], [[[0, 0], [1, 2], [2, 4]]])
+  end
 end

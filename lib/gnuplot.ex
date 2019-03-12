@@ -3,6 +3,8 @@ defmodule Gnuplot do
   Transmit Elixir data to Gnuplot graphing library.
   """
 
+  import Gnuplot.Datasets
+
   @doc """
   Transmit commands and data streams.
 
@@ -12,14 +14,11 @@ defmodule Gnuplot do
       :error
 
   """
-  def plot(_commands, _datasets) do
-    # with
-    #   {:ok, path} <- gnuplot_bin()
-    # do
-    #   1 + 2
-    # else
-    #   e -> e
-    # end
+  def plot(_commands, datasets) do
+    with {:ok, path} = gnuplot_bin(),
+         _data = format_datasets(datasets) do
+      {:ok, path}
+    end
   end
 
   def list(_xs), do: []
