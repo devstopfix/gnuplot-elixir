@@ -54,6 +54,9 @@ defmodule Gnuplot.Commands do
     end
   end
 
+  @doc """
+  Convert Elixir terms to Gnuplot strings.
+  """
   @spec format(list(list())) :: String.t()
   def format(cmds) do
     cmds

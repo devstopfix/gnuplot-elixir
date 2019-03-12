@@ -1,18 +1,27 @@
 defmodule Gnuplot do
   @moduledoc """
-  Transmit Elixir data to Gnuplot graphing library.
+  Interface to the Gnuplot graphing library.
+
+  Plot a sine wave:
+
+      Gnuplot.plot([
+        ~w(set autoscale)a,
+        ~w(set samples 800)a,
+        [:plot, -30..20, 'sin(x*20)*atan(x)']
+      ])
+
   """
 
   alias Gnuplot.Commands
   import Gnuplot.Dataset
 
   @doc """
-  Transmit commands and data streams.
+  Transmit commands and data streams to gnuplot.
 
   ## Examples
 
-      iex> Gnuplot.plot([:plot, "-", :with, :lines], [[[0, 0], [1, 2], [2, 4]]])
-      {:ok, gnuplot_cmd}
+      iex> Gnuplot.plot([[:plot, "-", :with, :lines]], [[[0, 0], [1, 2], [2, 4]]])
+      {:ok, "..."}
 
   """
   @spec plot(list(term()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
@@ -28,16 +37,26 @@ defmodule Gnuplot do
     end
   end
 
+  @doc """
+  Plot a function that has no dataset.
+  """
   @spec plot(list(term())) :: {:ok, String.t()} | {:error, term()}
   def plot(commands), do: plot(commands, [])
 
+  @doc """
+  Build a comma separated list.
+  """
   def list(a), do: %Commands.List{xs: [a]}
+
   def list(a, b), do: %Commands.List{xs: [a, b]}
 
   def list(a, b, c), do: %Commands.List{xs: [a, b, c]}
 
   def list(a, b, c, d), do: %Commands.List{xs: [a, b, c, d]}
 
+  @doc """
+  Find the gnuplot executable.
+  """
   @spec gnuplot_bin() :: {:error, :gnuplot_missing} | {:ok, :file.name()}
   def gnuplot_bin do
     case :os.find_executable(String.to_charlist("gnuplot")) do
