@@ -5,6 +5,9 @@ defmodule Gnuplot.Datasets do
   See http://www.gnuplotting.org/tag/standard-input/
   """
 
+  @gnuplot_end_row "\n"
+  @gnuplot_end_data "\ne\n"
+
   @doc """
   Convert a list of datasets.
 
@@ -18,8 +21,8 @@ defmodule Gnuplot.Datasets do
   defp format_dataset(dataset) do
     dataset
     |> Enum.map(&format_point/1)
-    |> Enum.intersperse("\n")
-    |> Enum.concat(["\ne\n"])
+    |> Enum.intersperse(@gnuplot_end_row)
+    |> Enum.concat([@gnuplot_end_data])
   end
 
   @spec format_point(list(number())) :: String.t()
