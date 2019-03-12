@@ -34,4 +34,14 @@ defmodule GnuplotTest do
     assert "set title 'simple\\'s'" == C.format([[:set, :title, "simple's"]])
   end
 
+  test "Write PNG" do
+    {tmp, 0} = System.cmd("mktemp")
+    png = String.trim_trailing(tmp, "\n") <> ".PNG"
+
+    # assert {:ok, _} == G.plot([
+    #   # [:a, :=, 0.9],
+    #   [:plot, G.list(["-", :with, :lines])]], [])
+
+  end
+
 end
