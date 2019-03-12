@@ -83,9 +83,11 @@ G.plot([[:plot, 'sin(x)', :title, "Sine Wave"]])
 G.plot([
         ~w(set autoscale)a,
         ~w(set samples 800)a,
-        [:plot, '[-30:20]', 'sin(x*20)*atan(x)']
+        [:plot, -30..20, 'sin(x*20)*atan(x)']
 ])
 ```
+
+NB [ranges](https://hexdocs.pm/elixir/Range.html) can be used
 
 ![rand](docs/atan_sin.PNG)
 

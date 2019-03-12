@@ -105,7 +105,7 @@ defmodule Mix.Tasks.Gnuplot.Plots do
         ~w(set samples 800)a,
         [
           :plot,
-          '[-30:20]',
+          -30..20,
           'sin(x*20)*atan(x)'
         ]
       ]
