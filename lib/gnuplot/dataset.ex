@@ -5,7 +5,7 @@ defmodule Gnuplot.Dataset do
   See http://www.gnuplotting.org/tag/standard-input/
   """
 
-  @type point :: list(number())
+  @type point :: list(number()) | tuple()
   @type t :: list(point())
 
   @gnuplot_end_row "\n"
@@ -30,6 +30,10 @@ defmodule Gnuplot.Dataset do
   end
 
   @spec format_point(point()) :: String.t()
+  defp format_point(point) when is_tuple(point) do
+    point |> Tuple.to_list() |> format_point()
+  end
+
   defp format_point(point) do
     point
     |> Enum.map(&Kernel.to_string/1)

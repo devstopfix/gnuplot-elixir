@@ -1,6 +1,6 @@
 # Gnuplot Elixir
 
-A simple interface from Elixir data structures to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit chart data from your application to Gnuplot.
+A simple interface from Elixir data structures to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit chart data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can easily plot 500k points in 20 seconds on a 2.2 GHz Intel Core i7.
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 
@@ -111,6 +111,47 @@ be found at [https://hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
 Some tests create plots which require `gnuplot` to be installed. They can be be excluded with:
 
     mix test.watch --exclude gnuplot:true
+
+## Performance
+
+The performance of the library is comparable to the Clojure version when `gnuplot` plots to a GUI. It is a little faster when writing directly to a PNG.
+
+| Points | Clojure GUI | Elixir GUI | Elixir PNG |
+| -----: | ----------: | ---------: | ---------: |
+|      1 |        1487 |          5 |          2 |
+|     10 |        1397 |         10 |         10 |
+|    100 |        1400 |          4 |         49 |
+|    1e3 |        1381 |         59 |         40 |
+|    1e4 |        1440 |        939 |        349 |
+|    1e5 |        5784 |       5801 |       4091 |
+|    1e6 |       49275 |      43464 |      41521 |
+
+![performance](docs/speed.PNG)
+
+```elixir
+points      = [1, 10, 100, 1000, 10000, 100000, 1000000]
+clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
+elixir_gui  = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
+elixir_png  = [0.002, 0.010, 0.049, 0.040, 0.349, 4.091, 41.521]
+datasets    = for ds <- [clojure_gui, elixir_gui, elixir_png], do: Enum.zip(points, ds)
+
+G.plot([
+  [:set, :title, "Render scatter plot"],
+  [:set, :xlabel, "Points"],
+  [:set, :ylabel, "Elapsed (s)"],
+  ~w(set key left top)a,
+  ~w(set logscale xy)a,
+  ~w(set grid xtics ytics)a,
+  ~w(set style line 1 lw 4 lc '#63b132')a,
+  ~w(set style line 2 lw 4 lc '#421C52')a,
+  ~w(set style line 3 lw 4 lc '#732C7B')a,
+  [:plot, G.list(
+      ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
+      ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
+      ["-", :title, "Elixir PNG", :with, :lines, :ls, 3]
+  )]], datasets
+])
+```
 
 ## Credits and licence
 
