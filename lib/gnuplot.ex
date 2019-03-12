@@ -11,8 +11,8 @@ defmodule Gnuplot do
 
   ## Examples
 
-      iex> Gnuplot.plot([:plot, G.list(["-", :with, :lines])], [[[0, 0], [1, 2], [2, 4]]])
-      {:ok, ...}
+      iex> Gnuplot.plot([:plot, "-", :with, :lines], [[[0, 0], [1, 2], [2, 4]]])
+      {:ok, gnuplot_cmd}
 
   """
   @spec plot(list(term()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
@@ -33,6 +33,10 @@ defmodule Gnuplot do
 
   def list(a), do: %Commands.List{xs: [a]}
   def list(a, b), do: %Commands.List{xs: [a, b]}
+
+  def list(a, b, c), do: %Commands.List{xs: [a, b, c]}
+
+  def list(a, b, c, d), do: %Commands.List{xs: [a, b, c, d]}
 
   @spec gnuplot_bin() :: {:error, :gnuplot_missing} | {:ok, :file.name()}
   def gnuplot_bin do

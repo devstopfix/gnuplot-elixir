@@ -9,7 +9,7 @@ This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 The `plot` function takes two arguments:
 
 * a list of commands (each of which is a list of terms)
-* a list of datasets
+* a list of datasets (not required when plotting functions)
 
 Commands are lists of terms that normally start with an atom such as `:set`. They may be written as lists or [Word lists](https://elixir-lang.org/getting-started/sigils.html#word-lists) - the following lines are equivalent:
 
@@ -38,7 +38,7 @@ alias Gnuplot, as: G
 dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
 G.plot([
   [:set, :title, "rand uniform vs normal"],
-  [:plot, G.list(["-", :with, :points])]
+  [:plot, "-", :with, :points]
   ], [dataset])
 ```
 
@@ -59,9 +59,7 @@ G.plot([
   [:plot,
     G.list(
       ["-", :title, "uniform", :with, :points],
-      ["-", :title, "normal", :with, :points]
-    )
-  ]
+      ["-", :title, "normal", :with, :points])]
   ], 
   [
         for(n <- 0..200, do: [n, n * :rand.uniform()]),
@@ -70,6 +68,8 @@ G.plot([
 ```
 
 ![uniform-vs-rand](docs/rand.PNG)
+
+NB We need a comma separated list for the `plot` command which is made with `G.list([...,...])`
 
 ### Plot functions without datasets
 
@@ -119,7 +119,6 @@ Original design ©2015 [Kyle Kingsbury][2].
 Elixir code ©2019 [DEVSTOPFIX LTD][3].
 
 Distributed under the [Eclipse Public License v2][6].
-
 
 
 [1]: http://www.gnuplot.info/

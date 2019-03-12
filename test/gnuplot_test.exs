@@ -45,7 +45,7 @@ defmodule GnuplotTest do
 
   @tag gnuplot: true
   test "Simple plot" do
-    plot = [[:plot, G.list(["-", :with, :lines])]]
+    plot = [[:plot, "-", :with, :lines]]
     expected = "plot \"-\" with lines"
     assert {:ok, expected} == G.plot(plot, [[[0, 0], [1, 2], [2, 4]]])
   end
@@ -53,7 +53,7 @@ defmodule GnuplotTest do
   @tag gnuplot: true
   test "Scatter plot" do
     dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
-    plot = [[:set, :title, "rand uniform vs normal"], [:plot, G.list(["-", :with, :points])]]
+    plot = [[:set, :title, "rand uniform vs normal"], [:plot, "-", :with, :points]]
     assert {:ok, _} = G.plot(plot, [dataset])
   end
 
