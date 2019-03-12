@@ -8,7 +8,11 @@ defmodule Gnuplot.MixProject do
       elixir: "~> 1.8",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      source_url: "https://github.com/devstopfix/gnuplot-elixir"
+      source_url: "https://github.com/devstopfix/gnuplot-elixir",
+      dialyzer: [
+        flags: [],
+        remove_defaults: [:unknown]
+      ]
     ]
   end
 

@@ -39,6 +39,7 @@ defmodule Gnuplot.Commands do
   end
 
   defmodule List do
+    @moduledoc "Comma separated lists"
     defstruct xs: []
   end
 
@@ -56,5 +57,4 @@ defmodule Gnuplot.Commands do
     |> Enum.map(fn cmd -> Command.formatg(cmd) end)
     |> Enum.join(";\n")
   end
-
 end

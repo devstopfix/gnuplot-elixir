@@ -4,9 +4,36 @@ A simple interface from Elixir data structures to the [Gnuplot graphing utility]
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 
+## Usage
+
+The `plot` function takes two arguments:
+
+* a list of commands (each of which is a list of terms)
+* a list of datasets
+
+A dataset is a list of points, each point is a list of numbers.
+
+### Scatter plot with a single dataset
+
+Lets compare the [rand functions](http://erlang.org/doc/man/rand.html):
+
+```elixir
+alias Gnuplot, as: G
+
+dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
+G.plot([
+  [:set, :title, "rand uniform vs normal"],
+  [:plot, G.list(["-", :with, :points])]
+  ], [dataset])
+```
+
+Gnuplot will by default open a window containing your plot.
+
+![rand](docs/window.png)
+
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+When [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `gnuplot` to your list of dependencies in `mix.exs`:
 
 ```elixir
@@ -21,6 +48,11 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
 
+## Testing
+
+Some tests create plots which require `gnuplot` to be installed. They can be be excluded with:
+
+    mix test.watch --exclude gnuplot:true
 
 ## Credits and licence
 
