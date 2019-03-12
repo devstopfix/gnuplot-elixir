@@ -9,9 +9,9 @@ This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 The `plot` function takes two arguments:
 
 * a list of commands (each of which is a list of terms)
-* a list of datasets (each of which is a list of rows, which are a list of numbers)
+* a list of datasets
 
-Gnuplot will by default open a window containing your plot.
+A dataset is a list of points, each point is a list of numbers.
 
 ### Scatter plot with a single dataset
 
@@ -27,13 +27,13 @@ G.plot([
   ], [dataset])
 ```
 
-The plot:
+Gnuplot will by default open a window containing your plot.
 
 ![rand](docs/window.png)
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
+When [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `gnuplot` to your list of dependencies in `mix.exs`:
 
 ```elixir

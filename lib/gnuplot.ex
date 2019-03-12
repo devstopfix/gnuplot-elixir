@@ -4,7 +4,7 @@ defmodule Gnuplot do
   """
 
   alias Gnuplot.Commands
-  import Gnuplot.Datasets
+  import Gnuplot.Dataset
 
   @doc """
   Transmit commands and data streams.
@@ -15,6 +15,7 @@ defmodule Gnuplot do
       {:ok, ...}
 
   """
+  @spec plot(list(term()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
   def plot(commands, datasets) do
     with {:ok, path} = gnuplot_bin(),
          cmd = Commands.format(commands),

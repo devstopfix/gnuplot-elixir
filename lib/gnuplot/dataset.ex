@@ -1,4 +1,4 @@
-defmodule Gnuplot.Datasets do
+defmodule Gnuplot.Dataset do
   @moduledoc """
   Convert Elixir lists to Gnuplot STDIN.
 
@@ -6,7 +6,7 @@ defmodule Gnuplot.Datasets do
   """
 
   @type point :: list(number())
-  @type dataset :: list(point())
+  @type t :: list(point())
 
   @gnuplot_end_row "\n"
   @gnuplot_end_data "\ne\n"
@@ -16,12 +16,12 @@ defmodule Gnuplot.Datasets do
 
   A dataset is a list of rows, each row is a list of numbers.
   """
-  @spec format_datasets(list(dataset())) :: [String.t()]
+  @spec format_datasets(list(t())) :: [String.t()]
   def format_datasets(datasets) do
     Enum.flat_map(datasets, &format_dataset/1)
   end
 
-  @spec format_dataset(dataset()) :: [String.t()]
+  @spec format_dataset(t()) :: [String.t()]
   defp format_dataset(dataset) do
     dataset
     |> Enum.map(&format_point/1)
