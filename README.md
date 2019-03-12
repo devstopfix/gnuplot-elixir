@@ -11,14 +11,22 @@ The `plot` function takes two arguments:
 * a list of commands (each of which is a list of terms)
 * a list of datasets
 
-A dataset is a list of points, each point is a list of numbers.
-
 Commands are lists of terms that normally start with an atom such as `:set`. They may be written as lists or [Word lists](https://elixir-lang.org/getting-started/sigils.html#word-lists) - the following lines are equivalent:
 
 * `[:set, :xtics, :off]`
 * `~w(set xtics off)a`
 
 and both convert to `set xtics off;`.
+
+Strings are output inside single quotes, and charlists are output without modification:
+
+```elixir
+[:plot, 'sin(x)', :title, "Sine Wave"]
+```
+
+becomes: `plot sin(x) title 'Sine Wave'`
+
+A dataset is a list of points, each point is a list of numbers.
 
 ### Scatter plot with a single dataset
 
@@ -62,6 +70,15 @@ G.plot([
 ```
 
 ![uniform-vs-rand](docs/rand.PNG)
+
+### Plot a function
+
+```elixir
+G.plot([[:plot, 'sin(x)', :title, "Sine Wave"]], [])
+```
+
+![rand](docs/sine.PNG)
+
 
 ## Installation
 

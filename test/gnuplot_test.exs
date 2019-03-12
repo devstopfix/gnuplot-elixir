@@ -17,6 +17,14 @@ defmodule GnuplotTest do
              C.format([~w(set xtics off)a, ~w(set ytics off)a])
   end
 
+  test "String literals" do
+    assert "plot cos(x)" == C.format([[:plot, 'cos(x)']])
+  end
+
+  test "Strings and literals" do
+    assert "plot sin(x) title 'Sine Wave'" == C.format([[:plot, 'sin(x)', :title, "Sine Wave"]])
+  end
+
   test "Plot range" do
     assert "plot [0:5]" == C.format([[:plot, 0..5]])
   end

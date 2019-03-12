@@ -31,13 +31,14 @@ defmodule Gnuplot.Commands do
   end
 
   defimpl Command, for: List do
-    def formatg(xs)
-
-    def formatg(xs) do
+    @spec formatg(maybe_improper_list()) :: binary()
+    def formatg(xs = [x | _]) when is_atom(x) or is_binary(x) do
       xs
       |> Enum.map(fn cmd -> Command.formatg(cmd) end)
       |> Enum.join(" ")
     end
+
+    def formatg(xs), do: List.to_string(xs)
   end
 
   defmodule List do

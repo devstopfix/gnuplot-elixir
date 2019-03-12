@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Plots do
+defmodule Mix.Tasks.Gnuplot.Plots do
   use Mix.Task
 
   @moduledoc false
@@ -8,7 +8,7 @@ defmodule Mix.Tasks.Plots do
   defp plot_file(target, cmds, datasets) do
     cmdf =
       Enum.concat(
-        [[:set, :term, :png], [:set, :output, target]],
+        [[:set, :term, :png, :size, '512,256'], [:set, :output, target]],
         cmds
       )
 
@@ -29,14 +29,30 @@ defmodule Mix.Tasks.Plots do
         ]
       ],
       [
-        for(n <- 0..1000, do: [n, n * :rand.uniform()]),
-        for(n <- 0..1000, do: [n, n * :rand.normal()])
+        for(n <- 0..196, do: [n, n * :rand.uniform()]),
+        for(n <- 0..196, do: [n, n * :rand.normal()])
       ]
+    )
+  end
+
+  defp sine do
+    plot_file(
+      "docs/sine.PNG",
+      [
+        [
+          :plot,
+          'sin(x)',
+          :title,
+          "Sine Wave"
+        ]
+      ],
+      []
     )
   end
 
   @shortdoc "Generate plots of the README"
   def run(_) do
     rand()
+    sine()
   end
 end
