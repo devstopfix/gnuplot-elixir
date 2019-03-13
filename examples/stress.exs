@@ -3,12 +3,12 @@ defmodule Stress do
 
   @moduledoc "https://github.com/aphyr/gnuplot/blob/master/test/gnuplot/core_test.clj#L24"
 
-  def png, do: Path.join(System.get_env("TMPDIR"), "stress.PNG")
+  def png(n), do: Path.join(System.get_env("TMPDIR"), "stress" <> to_string(n) <> ".PNG")
 
-  def target,
+  def target(n),
     do: [
       [:set, :term, :png, :size, '2048,1920'],
-      [:set, :output, png()]
+      [:set, :output, png(n)]
     ]
 
   def commands,
@@ -18,18 +18,17 @@ defmodule Stress do
       [:plot, "-", :with, :points]
     ]
 
-  def data(n \\ 500_000),
+  def data(n),
     do: [
       for(i <- 0..n, do: [i / n, i * :rand.uniform()])
     ]
 
-  def plot, do: G.plot(target() ++ commands(), data())
+  def plot(n), do: G.plot(target(n) ++ commands(), data(n))
 end
 
-# > time mix run examples/stress.exs && open "$TMPDIR"/stress.PNG
-#
-# real  0m21.498s
-# user  0m11.204s
-# sys    0m3.393s
+# > time mix run examples/stress.exs
 
-Stress.plot()
+for n <- [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000] do
+  {t, _} = :timer.tc(fn -> Stress.plot(n) end)
+  IO.inspect([n, t / 1000.0])
+end
