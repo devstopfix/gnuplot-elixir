@@ -7,7 +7,7 @@ defmodule Sine do
 
   def target,
     do: [
-      [:set, :term, :png, :size, '512,256', :font, "/Library/Fonts/FiraCode-Medium.otf", 12],
+      [:set, :term, :png, :size, '512,256', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
       [:set, :output, png()]
     ]
 

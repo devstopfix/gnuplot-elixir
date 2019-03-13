@@ -1,6 +1,6 @@
 # Gnuplot Elixir
 
-A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [500K points in 20 seconds](examples/stress.exs) on a 2.2 GHz Intel Core i7.
+A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [1M points in 20 seconds](examples/stress.exs) on an AWS t2.medium 2 vCPU server.
 
 Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
@@ -100,9 +100,7 @@ def deps do
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
+Documentation can found at [hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
 
 ## Testing
 
@@ -112,17 +110,17 @@ Some tests create plots which require `gnuplot` to be installed. They can be be 
 
 ## Performance
 
-The performance of the library is comparable to the Clojure version when `gnuplot` draws to a GUI. It is a little faster when writing directly to a PNG. The times below are in milliseconds. Each plot was made in increasing order of the number of points and after a cold start of the VM.
+The performance of the library on a MacBook Air is comparable to the Clojure version when `gnuplot` draws to a GUI. It is a little faster when writing directly to a PNG. It is faster still when running on a server. The times below are in milliseconds. Each plot was made in increasing order of the number of points and after a cold start of the VM.
 
-| Points | Clojure GUI | Elixir GUI | Elixir PNG |
-| -----: | ----------: | ---------: | ---------: |
-|      1 |       1,487 |          5 |          2 |
-|     10 |       1,397 |         10 |         10 |
-|    1e2 |       1,400 |          4 |         49 |
-|    1e3 |       1,381 |         59 |         40 |
-|    1e4 |       1,440 |        939 |        349 |
-|    1e5 |       5,784 |      5,801 |      4,091 |
-|    1e6 |      49,275 |     43,464 |     41,521 |
+| Points | Clojure GUI | Elixir GUI | Elixir PNG | Ubuntu 16.04 |
+| -----: | ----------: | ---------: | ---------: | -----------: |
+|      1 |       1,487 |          5 |          2 |            4 |
+|     10 |       1,397 |         10 |         10 |           <1 |
+|    1e2 |       1,400 |          4 |         49 |            1 |
+|    1e3 |       1,381 |         59 |         40 |            8 |
+|    1e4 |       1,440 |        939 |        349 |          211 |
+|    1e5 |       5,784 |      5,801 |      4,091 |        1,873 |
+|    1e6 |      49,275 |     43,464 |     41,521 |       19,916 |
 
 ![performance](docs/perf.PNG)
 
@@ -131,7 +129,8 @@ points      = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
 clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
 elixir_gui  = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
 elixir_png  = [0.002, 0.010, 0.049, 0.040, 0.349, 4.091, 41.521]
-datasets    = for ds <- [clojure_gui, elixir_gui, elixir_png], do: Enum.zip(points, ds)
+ubuntu_t2m = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
+datasets    = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m], do: Enum.zip(points, ds)
 
 G.plot([
   [:set, :title, "Render scatter plot"],
@@ -143,10 +142,12 @@ G.plot([
   ~w(set style line 1 lw 4 lc '#63b132')a,
   ~w(set style line 2 lw 4 lc '#421C52')a,
   ~w(set style line 3 lw 4 lc '#732C7B')a,
+  ~w(set style line 4 lw 4 lc '#E95420')a,
   [:plot, G.list(
       ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
       ["-", :title, "Elixir GUI",  :with, :lines, :ls, 2],
-      ["-", :title, "Elixir PNG",  :with, :lines, :ls, 3]
+      ["-", :title, "Elixir PNG",  :with, :lines, :ls, 3],
+      ["-", :title, "Elixir PNG t2.m", :with, :lines, :ls, 4]
   )]], datasets
 ])
 ```

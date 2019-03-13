@@ -3,11 +3,11 @@ defmodule Stress do
 
   @moduledoc "https://github.com/aphyr/gnuplot/blob/master/test/gnuplot/core_test.clj#L24"
 
-  def png(n), do: Path.join(System.get_env("TMPDIR"), "stress" <> to_string(n) <> ".PNG")
+  def png(n), do: Path.join("/tmp", "stress" <> to_string(n) <> ".PNG")
 
   def target(n),
     do: [
-      [:set, :term, :png, :size, '2048,1920'],
+      [:set, :term, :png, :size, '2048,1920', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
       [:set, :output, png(n)]
     ]
 
@@ -26,9 +26,9 @@ defmodule Stress do
   def plot(n), do: G.plot(target(n) ++ commands(), data(n))
 end
 
-# > time mix run examples/stress.exs
+# time mix run examples/stress.exs
 
 for n <- [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000] do
   {t, _} = :timer.tc(fn -> Stress.plot(n) end)
-  IO.inspect([n, t / 1000.0])
+  IO.inspect([n, Float.round(t / 1000.0 / 1000.0, 3)])
 end
