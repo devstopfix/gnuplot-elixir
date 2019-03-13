@@ -19,11 +19,16 @@ defmodule Stress do
     ]
 
   def data(n),
-    do: [
-      for(i <- 0..n, do: [i / n, i * :rand.uniform()])
-    ]
+    do:
+      Stream.unfold(0, fn i ->
+        if i <= n do
+          {[i / n, i * :rand.uniform()], i + 1}
+        else
+          nil
+        end
+      end)
 
-  def plot(n), do: G.plot(target(n) ++ commands(), data(n))
+  def plot(n), do: G.plot(target(n) ++ commands(), [data(n)])
 end
 
 # time mix run examples/stress.exs

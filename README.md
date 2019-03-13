@@ -11,7 +11,7 @@ This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 The `plot` function takes two arguments:
 
 * a list of commands (each of which is a list of terms)
-* a list of datasets (not required when plotting functions)
+* a list of Streams or Enumerable datasets (not required when plotting functions)
 
 Commands are lists of terms that normally start with an atom such as `:set`. They may be written as lists or [Word lists](https://elixir-lang.org/getting-started/sigils.html#word-lists) - the following lines are equivalent:
 
@@ -95,7 +95,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.71"}
+    {:gnuplot, "~> 0.19.72"}
   ]
 end
 ```
@@ -114,13 +114,13 @@ The performance of the library on a MacBook Air is comparable to the Clojure ver
 
 | Points | Clojure GUI | Elixir GUI | Elixir PNG | Ubuntu 16.04 |
 | -----: | ----------: | ---------: | ---------: | -----------: |
-|      1 |       1,487 |          5 |          2 |            4 |
-|     10 |       1,397 |         10 |         10 |           <1 |
-|    1e2 |       1,400 |          4 |         49 |            1 |
-|    1e3 |       1,381 |         59 |         40 |            8 |
-|    1e4 |       1,440 |        939 |        349 |          211 |
-|    1e5 |       5,784 |      5,801 |      4,091 |        1,873 |
-|    1e6 |      49,275 |     43,464 |     41,521 |       19,916 |
+|      1 |       1,487 |          5 |         18 |            4 |
+|     10 |       1,397 |         10 |          1 |           <1 |
+|    1e2 |       1,400 |          4 |         12 |            1 |
+|    1e3 |       1,381 |         59 |         52 |            8 |
+|    1e4 |       1,440 |        939 |        348 |          211 |
+|    1e5 |       5,784 |      5,801 |      3,494 |        1,873 |
+|    1e6 |      49,275 |     43,464 |     35,505 |       19,916 |
 
 ![performance](docs/perf.PNG)
 

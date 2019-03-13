@@ -28,13 +28,20 @@ defmodule Gnuplot do
   def plot(commands, datasets) do
     with {:ok, path} = gnuplot_bin(),
          cmd = Commands.format(commands),
-         data = format_datasets(datasets),
          args = ["-p", "-e", cmd],
          port = Port.open({:spawn_executable, path}, [:binary, args: args]) do
-      Enum.each(data, fn row -> send(port, {self(), {:command, row}}) end)
+      transmit(port, datasets)
       {_, :close} = send(port, {self(), :close})
       {:ok, cmd}
     end
+  end
+
+  defp transmit(port, datasets) do
+    :ok =
+      datasets
+      |> format_datasets()
+      |> Stream.each(fn row -> send(port, {self(), {:command, row}}) end)
+      |> Stream.run()
   end
 
   @doc """
