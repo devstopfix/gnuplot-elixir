@@ -1,6 +1,8 @@
 # Gnuplot Elixir
 
-A simple interface from Elixir data structures to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit chart data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot 500K points in 20 seconds on a 2.2 GHz Intel Core i7.
+A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [500K points in 20 seconds][examples/stress.exs] on a 2.2 GHz Intel Core i7.
+
+Please visit the [Gnuplot demos gallery][http://gnuplot.sourceforge.net/demo/] to see all the possibilities, the [manual which describes the grammar][http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf], and the [examples folder][examples/].
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 
@@ -18,19 +20,13 @@ Commands are lists of terms that normally start with an atom such as `:set`. The
 
 and both convert to `set xtics off`.
 
-Strings are output inside double quotes, and charlists are output without modification:
-
-```elixir
-[:plot, 'sin(x)', :title, "Sine Wave"]
-```
-
-becomes: `plot sin(x) title "Sine Wave"`
+Strings are output inside double quotes, and charlists are output without modification. `[:plot, 'sin(x)', :title, "Sine Wave"]` becomes: `plot sin(x) title "Sine Wave"`
 
 A dataset is a list of points, each point is a list of numbers.
 
 ### Scatter plot with a single dataset
 
-Lets compare the [rand functions](http://erlang.org/doc/man/rand.html):
+Lets compare the distributions of the [Erlang rand functions](http://erlang.org/doc/man/rand.html):
 
 ```elixir
 alias Gnuplot, as: G
@@ -42,9 +38,9 @@ G.plot([
   ], [dataset])
 ```
 
-Gnuplot will by default open a window containing your plot.
+Gnuplot will by default open a window containing your plot:
 
-![rand](docs/window.png)
+![rand](docs/gnuplot.PNG)
 
 ### PNG of two datasets
 
@@ -69,7 +65,7 @@ G.plot([
 
 ![uniform-vs-rand](docs/rand.PNG)
 
-NB We need a comma separated list for the `plot` command which is made with `G.list([...,...])`
+NB We need a comma separated list for the `plot` command which is made with `G.list([ [...], [...], ... ])`
 
 ### Plot functions without datasets
 
@@ -99,7 +95,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.71"}
+    {:gnuplot, "~> 0.19.72"}
   ]
 end
 ```
@@ -128,7 +124,7 @@ The performance of the library is comparable to the Clojure version when `gnuplo
 |    1e5 |       5,784 |      5,801 |      4,091 |
 |    1e6 |      49,275 |     43,464 |     41,521 |
 
-![performance](docs/speed.PNG)
+![performance](docs/perf.PNG)
 
 ```elixir
 points      = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
@@ -170,3 +166,4 @@ Distributed under the [Eclipse Public License v2][6].
 [4]: https://github.com/aphyr/gnuplot
 [5]: http://erlang.org/doc/reference_manual/ports.html
 [6]: https://www.eclipse.org/legal/epl-2.0/
+[7]: https://elixir-lang.org/getting-started/basic-types.html
