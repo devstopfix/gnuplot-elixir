@@ -1,8 +1,8 @@
 # Gnuplot Elixir
 
-A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [500K points in 20 seconds][examples/stress.exs] on a 2.2 GHz Intel Core i7.
+A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [500K points in 20 seconds](examples/stress.exs) on a 2.2 GHz Intel Core i7.
 
-Please visit the [Gnuplot demos gallery][http://gnuplot.sourceforge.net/demo/] to see all the possibilities, the [manual which describes the grammar][http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf], and the [examples folder][examples/].
+Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
 
@@ -95,7 +95,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.72"}
+    {:gnuplot, "~> 0.19.71"}
   ]
 end
 ```

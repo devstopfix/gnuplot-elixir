@@ -43,5 +43,5 @@ defmodule Perf do
   def plot, do: G.plot(target() ++ commands(), data())
 end
 
-# mix run examples/rand.exs
+# mix run examples/perf.exs
 Perf.plot()

@@ -28,8 +28,8 @@ end
 
 # > time mix run examples/stress.exs && open "$TMPDIR"/stress.PNG
 #
-# real	0m21.498s
-# user	0m11.204s
-# sys	   0m3.393s
+# real  0m21.498s
+# user  0m11.204s
+# sys    0m3.393s
 
 Stress.plot()
