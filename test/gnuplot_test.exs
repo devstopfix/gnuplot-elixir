@@ -2,6 +2,7 @@ defmodule GnuplotTest do
   use ExUnit.Case
   alias Gnuplot, as: G
   alias Gnuplot.Commands, as: C
+  alias Gnuplot.Dataset, as: D
 
   test "List of commands" do
     assert "set xtics off;\nset ytics off" ==
@@ -31,6 +32,14 @@ defmodule GnuplotTest do
 
   test "Title apostrophe" do
     assert "set title \"simple's\"" == C.format([[:set, :title, "simple's"]])
+  end
+
+  test "Datasets" do
+    input = [[[1, 1], [1, 2]], [[2, 3], [2, 4], [2, 5]]]
+    expected = ["1 1", "\n", "1 2", "\ne\n", "2 3", "\n", "2 4", "\n", "2 5", "\ne\n"]
+
+    assert expected ==
+             input |> D.format_datasets() |> Enum.to_list()
   end
 
   @tag gnuplot: true

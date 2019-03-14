@@ -12,21 +12,19 @@ defmodule Gnuplot.Dataset do
   @gnuplot_end_data "\ne\n"
 
   @doc """
-  Convert a list of datasets.
+  Format datasets into Gnuplot STDIN format. Datasets must be Enumerable and can be Streams.
 
   A dataset is a list of points, each point is a list of numbers.
   """
-  @spec format_datasets(list(t())) :: [String.t()]
   def format_datasets(datasets) do
-    Enum.flat_map(datasets, &format_dataset/1)
+    Stream.flat_map(datasets, &format_dataset/1)
   end
 
-  @spec format_dataset(t()) :: [String.t()]
   defp format_dataset(dataset) do
     dataset
-    |> Enum.map(&format_point/1)
-    |> Enum.intersperse(@gnuplot_end_row)
-    |> Enum.concat([@gnuplot_end_data])
+    |> Stream.map(&format_point/1)
+    |> Stream.intersperse(@gnuplot_end_row)
+    |> Stream.concat([@gnuplot_end_data])
   end
 
   @spec format_point(point()) :: String.t()

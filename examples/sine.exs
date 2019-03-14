@@ -19,7 +19,8 @@ defmodule Sine do
         'sin(x)',
         :title,
         "Sine Wave",
-        :ls, 1
+        :ls,
+        1
       ]
     ]
 
