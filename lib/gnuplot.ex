@@ -61,6 +61,8 @@ defmodule Gnuplot do
 
   def list(a, b, c, d), do: %Commands.List{xs: [a, b, c, d]}
 
+  def list(a, b, c, d, e), do: %Commands.List{xs: [a, b, c, d, e]}
+
   @doc """
   Find the gnuplot executable.
   """
