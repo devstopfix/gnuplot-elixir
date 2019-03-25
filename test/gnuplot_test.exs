@@ -49,7 +49,7 @@ defmodule GnuplotTest do
   end
 
   @tag gnuplot: true
-  test "Simple plot" do
+  test "Simple plot with single dataset" do
     plot = [[:plot, "-", :with, :lines]]
     expected = "plot \"-\" with lines"
     assert {:ok, expected} == G.plot(plot, [[[0, 0], [1, 2], [2, 4]]])
@@ -62,19 +62,22 @@ defmodule GnuplotTest do
     assert {:ok, _} = G.plot(plot, [dataset])
   end
 
-  test "Write PNG" do
-    {tmp, 0} = System.cmd("mktemp", [])
-    png = String.trim_trailing(tmp, "\n") <> ".PNG"
-
-    assert {:ok, _} =
-             G.plot(
-               [[:set, :term, :png], [:set, :output, png], [:plot, "-", :with, :lines]],
-               [[[0, 0], [1, 1]]]
-             )
-
-    assert Enum.any?(1..10, fn _ ->
-             :timer.sleep(10)
-             File.exists?(png)
-           end)
+  @tag gnuplot: true
+  test "Simple plot with two datasets" do
+    plot = [[:plot, [["-", :with, :lines], ["-", :with, :points]]]]
+    expected = "plot \"-\" with lines, \"-\" with points"
+    assert {:ok, expected} == G.plot(plot, [[[1, 1], [1, 2], [1, 4]], [[2, 2], [2, 4], [2, 8]]])
   end
+
+  @tag gnuplot: true
+  test "3d splot" do
+    plot = [
+      [:set, :xrange, -3..3],
+      [:set, :yrange, -3..3],
+      [:splot, 'sin(x) * cos(y)']
+    ]
+    expected = "set xrange [-3:3];\nset yrange [-3:3];\nsplot sin(x) * cos(y)"
+    assert {:ok, expected} == G.plot(plot)
+  end
+
 end
