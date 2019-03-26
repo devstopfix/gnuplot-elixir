@@ -39,7 +39,8 @@ defmodule Gnuplot.MixProject do
       files: ["lib", "mix.exs", "README*", "LICENSE*"],
       maintainers: ["James Every"],
       licenses: ["EPL-2.0"],
-      links: %{"GitHub" => "https://github.com/devstopfix/gnuplot-elixir"}
+      links: %{"GitHub" => "https://github.com/devstopfix/gnuplot-elixir",
+               "Travis" => "https://travis-ci.org/devstopfix/gnuplot-elixir"}
     ]
   end
 end
