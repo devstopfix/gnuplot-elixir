@@ -5,7 +5,7 @@ defmodule Gnuplot.MixProject do
     [
       app: :gnuplot,
       version: "0.19.73",
-      elixir: "~> 1.4",
+      elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       description: "Interface between Elixir and Gnuplot graphing library",
       deps: deps(),
