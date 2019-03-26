@@ -69,8 +69,8 @@ defmodule GnuplotTest do
       [:set, :yrange, -3..3],
       [:splot, 'sin(x) * cos(y)']
     ]
+
     expected = "set xrange [-3:3];\nset yrange [-3:3];\nsplot sin(x) * cos(y)"
     assert {:ok, expected} == G.plot(plot)
   end
-
 end

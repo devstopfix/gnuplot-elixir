@@ -38,12 +38,14 @@ defmodule Perf do
 
   def data do
     points = [1, 10, 100, 1000, 10_000, 100_000, 1_000_000]
-    clojure_gui =   [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
-    elixir_gui =    [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
-    elixir_png =    [0.018, 0.001, 0.012, 0.052, 0.348, 3.494, 35.505]
-    ubuntu_t2m =    [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
+    clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
+    elixir_gui = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
+    elixir_png = [0.018, 0.001, 0.012, 0.052, 0.348, 3.494, 35.505]
+    ubuntu_t2m = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
     ubuntu_stream = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
-    for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip(points, ds)
+
+    for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream],
+        do: Enum.zip(points, ds)
   end
 
   def plot, do: G.plot(target() ++ commands(), data())

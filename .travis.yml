@@ -5,6 +5,7 @@ elixir:
   - 1.6.0
 
 before_script:
+  - mix format --check-formatted
   - mix credo --strict
   # - mix dialyzer
 
