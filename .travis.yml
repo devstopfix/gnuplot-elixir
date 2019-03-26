@@ -7,3 +7,9 @@ elixir:
 before_script:
   - mix credo --strict
   - mix dialyzer
+
+# Remove 6min delay downloading Dialyzer dependencies
+cache:
+  directories:
+    - _build
+    - deps  
