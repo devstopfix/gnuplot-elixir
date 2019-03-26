@@ -30,7 +30,7 @@ defmodule Gnuplot.MixProject do
       {:credo, "~> 1.0.2", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0.0-rc.4", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev},
-      {:inch_ex, only: :docs},
+      {:inch_ex, github: "rrrene/inch_ex", only: [:dev, :test]},
       {:mix_test_watch, "~> 0.8", only: :dev, runtime: false}
     ]
   end
