@@ -137,9 +137,9 @@ points      = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
 clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
 elixir_gui  = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
 elixir_png  = [0.002, 0.010, 0.049, 0.040, 0.349, 4.091, 41.521]
-ubuntu_t2m = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
+ubuntu_t2m  = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
 ubuntu_stream = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
-for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip (points, ds)
+datasets = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip (points, ds)
 
 G.plot([
   [:set, :title, "Render scatter plot"],
