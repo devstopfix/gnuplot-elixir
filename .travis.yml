@@ -8,6 +8,8 @@ before_script:
   - mix credo --strict
   - mix dialyzer
 
+script: mix test --exclude gnuplot:true
+
 # Remove 6min delay downloading Dialyzer dependencies
 cache:
   directories:
