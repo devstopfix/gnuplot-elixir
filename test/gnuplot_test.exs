@@ -63,13 +63,6 @@ defmodule GnuplotTest do
   end
 
   @tag gnuplot: true
-  test "Simple plot with two datasets" do
-    plot = [[:plot, [["-", :with, :lines], ["-", :with, :points]]]]
-    expected = "plot \"-\" with lines, \"-\" with points"
-    assert {:ok, expected} == G.plot(plot, [[[1, 1], [1, 2], [1, 4]], [[2, 2], [2, 4], [2, 8]]])
-  end
-
-  @tag gnuplot: true
   test "3d splot" do
     plot = [
       [:set, :xrange, -3..3],

@@ -4,7 +4,7 @@ A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] th
 
 Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
-This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2].
+This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md)!
 
 ## Usage
 
@@ -22,7 +22,7 @@ and both convert to `set xtics off`.
 
 Strings are output inside double quotes, and charlists are output without modification. `[:plot, 'sin(x)', :title, "Sine Wave"]` becomes: `plot sin(x) title "Sine Wave"`
 
-A dataset is a list of points, each point is a list of numbers.
+A dataset is a list of points, each point is a list of numbers. A dataset can be a Stream.
 
 ### Scatter plot with a single dataset
 
@@ -32,7 +32,7 @@ Lets compare the distributions of the [Erlang rand functions](http://erlang.org/
 alias Gnuplot, as: G
 
 dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
-G.plot([
+{:ok, _cmd} = G.plot([
   [:set, :title, "rand uniform vs normal"],
   [:plot, "-", :with, :points]
   ], [dataset])
@@ -42,15 +42,17 @@ Gnuplot will by default open a window containing your plot:
 
 ![rand](docs/gnuplot.PNG)
 
+The command string sent (`_cmd` above) can be manually inspected should the chart not appear as you expected.
+
 ### PNG of two datasets
 
 Write two datasets to a PNG file:
 
 ```elixir
-G.plot([
+{:ok, _cmd} = G.plot([
+  [:set, :term, :png], 
   [:set, :output, "/tmp/rand.png"]
   [:set, :title, "rand uniform vs normal"],
-  [:set, :term, :png], 
   [:set, :key, :left, :top],
   [:plot,
     G.list(
@@ -65,7 +67,9 @@ G.plot([
 
 ![uniform-vs-rand](docs/rand.PNG)
 
-NB We need a comma separated list for the `plot` command which is made with `G.list([ [...], [...], ... ])`
+NB When we are plotting multiple datasets in the same plot we need a comma separated list for the `plot` command which is made here with `G.list([ [...], [...], ... ])`
+
+
 
 ### Plot functions without datasets
 
@@ -95,7 +99,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.72"}
+    {:gnuplot, "~> 0.19.73"}
   ]
 end
 ```
