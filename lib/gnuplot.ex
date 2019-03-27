@@ -24,10 +24,14 @@ defmodule Gnuplot do
   alias Gnuplot.Commands
   import Gnuplot.Dataset
 
+  @type command_term :: atom() | charlist() | number() | Range.t() | String.t()
+
+  @type command :: nonempty_list(command_term())
+
   @doc """
-  Plot a function that has no dataset.
+  Transmit commands without dataset.
   """
-  @spec plot(list(term())) :: {:ok, String.t()} | {:error, term()}
+  @spec plot(list(command())) :: {:ok, String.t()} | {:error, term()}
   def plot(commands), do: plot(commands, [])
 
   @doc """
@@ -36,10 +40,10 @@ defmodule Gnuplot do
   ## Examples
 
       iex> Gnuplot.plot([[:plot, "-", :with, :lines]], [[[0, 0], [1, 2], [2, 4]]])
-      {:ok, "..."}
+      {:ok, "plot \"-\" with lines"}
 
   """
-  @spec plot(list(term()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
+  @spec plot(list(command()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
   def plot(commands, datasets) do
     with {:ok, path} = gnuplot_bin(),
          cmd = Commands.format(commands),
@@ -51,6 +55,7 @@ defmodule Gnuplot do
     end
   end
 
+  @spec transmit(port(), list(Dataset.t())) :: :ok
   defp transmit(port, datasets) do
     :ok =
       datasets
