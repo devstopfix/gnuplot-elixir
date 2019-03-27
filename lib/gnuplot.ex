@@ -13,11 +13,12 @@ defmodule Gnuplot do
   Plot a sine function where your program generates the data:
 
       Gnuplot.plot([
-        [:plot, "-", :with, :lines :title, "sin(x*20)*atan(x)"]
-      ],
-      [
-        for x <- -30_000..20_000, do: [x / 1000.0 , :math.sin(x * 20 / 1000.0) * :math.atan(x / 1000.0) ]
-      ])
+          [:plot, "-", :with, :lines :title, "sin(x*20)*atan(x)"]
+        ],
+        [
+          for x <- -30_000..20_000, do: [x / 1000.0 , :math.sin(x * 20 / 1000.0) * :math.atan(x / 1000.0) ]
+        ]
+      )
 
   """
 
