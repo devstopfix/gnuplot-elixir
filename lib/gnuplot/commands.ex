@@ -42,7 +42,10 @@ defmodule Gnuplot.Commands do
   end
 
   defmodule List do
-    @moduledoc "Comma separated lists"
+    @moduledoc """
+    Comma separated list.
+    Most lists are joined with whitespace, however the plot and splot commands require multiple plots to be comma separated.
+    """
     defstruct xs: []
   end
 

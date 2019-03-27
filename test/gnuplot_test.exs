@@ -42,6 +42,16 @@ defmodule GnuplotTest do
              input |> D.format_datasets() |> Enum.to_list()
   end
 
+  test "Comma separated lists of plots using arity 2" do
+    assert "plot a with lines,b with points" ==
+             C.format([[:plot, G.list([:a, :with, :lines], [:b, :with, :points])]])
+  end
+
+  test "Comma separated lists of plots using arity 1 and sublists" do
+    assert "plot a with lines,b with points" ==
+             C.format([[:plot, G.list([[:a, :with, :lines], [:b, :with, :points]])]])
+  end
+
   @tag gnuplot: true
   test "Gnuplot is installed" do
     assert {:ok, path} = G.gnuplot_bin()
