@@ -24,6 +24,7 @@ defmodule Gnuplot do
 
   alias Gnuplot.Commands
   import Gnuplot.Dataset
+  import Gnuplot.Bin
 
   @type command_term :: atom() | charlist() | number() | Range.t() | String.t()
 
@@ -63,17 +64,6 @@ defmodule Gnuplot do
       |> format_datasets()
       |> Stream.each(fn row -> send(port, {self(), {:command, row}}) end)
       |> Stream.run()
-  end
-
-  @doc """
-  Find the gnuplot executable.
-  """
-  @spec gnuplot_bin() :: {:error, :gnuplot_missing} | {:ok, :file.name()}
-  def gnuplot_bin do
-    case :os.find_executable(String.to_charlist("gnuplot")) do
-      false -> {:error, :gnuplot_missing}
-      path -> {:ok, path}
-    end
   end
 
   @doc "Build a comma separated list from a list of terms."

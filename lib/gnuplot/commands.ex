@@ -5,6 +5,8 @@ defmodule Gnuplot.Commands do
 
   defprotocol Command do
     @spec formatg(term()) :: String.t()
+
+    @doc "Format Elixir term as a Gnuplot String"
     def formatg(cmd)
   end
 

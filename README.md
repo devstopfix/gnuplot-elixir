@@ -100,7 +100,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 0.19.86"}
+    {:gnuplot, "~> 0.19.87"}
   ]
 end
 ```

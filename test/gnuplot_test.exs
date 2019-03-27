@@ -54,7 +54,7 @@ defmodule GnuplotTest do
 
   @tag gnuplot: true
   test "Gnuplot is installed" do
-    assert {:ok, path} = G.gnuplot_bin()
+    assert {:ok, path} = Gnuplot.Bin.gnuplot_bin()
     assert File.exists?(path)
   end
 
