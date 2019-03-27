@@ -1,6 +1,6 @@
 defmodule Gnuplot.Commands do
   @moduledoc """
-  Protocols that convert Elixir structures to Gnuplot commands.
+  Protocol that convert Elixir terms to Gnuplot commands.
   """
 
   defprotocol Command do
@@ -44,6 +44,7 @@ defmodule Gnuplot.Commands do
   defmodule List do
     @moduledoc """
     Comma separated list.
+
     Most lists are joined with whitespace, however the plot and splot commands require multiple plots to be comma separated.
     """
     defstruct xs: []

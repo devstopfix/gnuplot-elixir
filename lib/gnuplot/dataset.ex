@@ -1,9 +1,5 @@
 defmodule Gnuplot.Dataset do
-  @moduledoc """
-  Convert Elixir lists to Gnuplot STDIN.
-
-  See http://www.gnuplotting.org/tag/standard-input/
-  """
+  @moduledoc false
 
   @type point :: list(number()) | tuple()
   @type t :: list(point())
@@ -12,9 +8,10 @@ defmodule Gnuplot.Dataset do
   @gnuplot_end_data "\ne\n"
 
   @doc """
-  Format datasets into Gnuplot STDIN format. Datasets must be Enumerable and can be Streams.
+  Convert Elixir lists to Gnuplot STDIN text.
 
-  A dataset is a list of points, each point is a list of numbers.
+  Datasets must be Enumerable and can be Streams.
+  See the [target format](http://www.gnuplotting.org/tag/standard-input/)
   """
   def format_datasets(datasets) do
     Stream.flat_map(datasets, &format_dataset/1)
