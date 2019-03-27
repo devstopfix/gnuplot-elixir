@@ -4,7 +4,7 @@ A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] th
 
 Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
-This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md)!
+This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X and Ubuntu 16.04.
 
 [![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir)
 
@@ -72,7 +72,6 @@ Write two datasets to a PNG file:
 NB When we are plotting multiple datasets in the same plot we need a comma separated list for the `plot` command which is made here with `G.list([ [...], [...], ... ])`
 
 
-
 ### Plot functions without datasets
 
 ```elixir
@@ -106,7 +105,7 @@ def deps do
 end
 ```
 
-Documentation can found at [hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot).
+Documentation can found at [hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot/Gnuplot.html).
 
 ## Testing
 
