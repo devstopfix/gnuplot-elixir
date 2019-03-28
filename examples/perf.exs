@@ -7,14 +7,14 @@ defmodule Perf do
 
   def target,
     do: [
-      [:set, :term, :png, :size, '512,512', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
+      [:set, :term, :png, :size, '640,512', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
       [:set, :output, png()]
     ]
 
   def commands,
     do: [
-      [:set, :title, "Render scatter plot"],
-      [:set, :xlabel, "Points"],
+      [:set, :title, "Time to render scatter plots"],
+      [:set, :xlabel, "Points in plot"],
       [:set, :ylabel, "Elapsed (s)"],
       ~w(set key left top)a,
       ~w(set logscale xy)a,
