@@ -4,7 +4,6 @@ defmodule BarChart do
   @moduledoc "Chart from https://stackoverflow.com/a/11551808/3366"
 
   def run do
-
     chart = [
       [:set, :term, :png, :size, '512,512'],
       [:set, :output, Path.join("/tmp", "barchart.PNG")],
