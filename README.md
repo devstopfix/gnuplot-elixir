@@ -4,7 +4,7 @@ A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] th
 
 Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
-This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X and Ubuntu 16.04.
+This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
 
 [![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir)
 
@@ -141,8 +141,8 @@ ubuntu_stream = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
 datasets = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip (points, ds)
 
 G.plot([
-  [:set, :title, "Render scatter plot"],
-  [:set, :xlabel, "Points"],
+  [:set, :title, "Time to render scatter plots"],
+  [:set, :xlabel, "Points in plot"],
   [:set, :ylabel, "Elapsed (s)"],
   ~w(set key left top)a,
   ~w(set logscale xy)a,
