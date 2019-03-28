@@ -31,7 +31,19 @@ defmodule Gnuplot.Dataset do
 
   defp format_point(point) do
     point
-    |> Enum.map(&Kernel.to_string/1)
+    |> Enum.map(&to_str/1)
     |> Enum.join(" ")
   end
+
+  defp to_str(f) when is_float(f), do: Float.to_string(f)
+  defp to_str(i) when is_integer(i), do: Integer.to_string(i)
+  defp to_str(s) when is_binary(s) do
+    if contains_space?(s) do
+      "\"" <> s <> "\""
+    else
+      s
+    end
+  end
+
+  def contains_space?(s), do: String.contains?(s, " ")
 end
