@@ -83,4 +83,11 @@ defmodule GnuplotTest do
     expected = "set xrange [-3:3];\nset yrange [-3:3];\nsplot sin(x) * cos(y)"
     assert {:ok, expected} == G.plot(plot)
   end
+
+  test "Strings with spaces in datasets" do
+    input = [[0, "label", 100], [1, "label2", 450], [2, "bar label", 75]]
+    expected = ["0 label 100", "\n", "1 label2 450", "\n", "2 \"bar label\" 75", "\ne\n"]
+    assert expected ==
+             [input] |> D.format_datasets() |> Enum.to_list()
+  end
 end

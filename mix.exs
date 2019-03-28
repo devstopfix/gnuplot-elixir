@@ -4,7 +4,7 @@ defmodule Gnuplot.MixProject do
   def project do
     [
       app: :gnuplot,
-      version: "0.19.87",
+      version: "1.19.88",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
       description: "Interface between Elixir and Gnuplot graphing library",
@@ -41,7 +41,7 @@ defmodule Gnuplot.MixProject do
       licenses: ["EPL-2.0"],
       links: %{
         "GitHub" => "https://github.com/devstopfix/gnuplot-elixir",
-        "Travis" => "https://travis-ci.org/devstopfix/gnuplot-elixir"
+        "Travis CI" => "https://travis-ci.org/devstopfix/gnuplot-elixir"
       }
     ]
   end
