@@ -6,7 +6,7 @@ Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) t
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
 
-[![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir) [![Hex.pm](https://img.shields.io/hexpm/v/gnuplot.svg?style=flat-square)](https://hex.pm/packages/gnuplot)
+[![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir) [![Hex.pm](https://img.shields.io/hexpm/v/gnuplot.svg?style=flat-square)](https://hex.pm/packages/gnuplot) ![Platforms](https://img.shields.io/badge/platform-osx%7Cubuntu%7Ccentos-black.svg)
 
 ## Usage
 
