@@ -41,6 +41,7 @@ defmodule Gnuplot.MixProject do
       licenses: ["EPL-2.0"],
       links: %{
         "GitHub" => "https://github.com/devstopfix/gnuplot-elixir",
+        "Gnuplot" => "http://www.gnuplot.info/",
         "Travis CI" => "https://travis-ci.org/devstopfix/gnuplot-elixir"
       }
     ]
