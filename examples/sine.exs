@@ -7,13 +7,16 @@ defmodule Sine do
 
   def target,
     do: [
-      [:set, :term, :png, :size, '512,256', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
+      [:set, :term, :pngcairo, :size, '512,256' ,:font, "Fira Sans"],
       [:set, :output, png()]
     ]
 
   def commands,
     do: [
-      ~w(set style line 1 lw 2 lc '#732C7B')a,
+      ~w(set style line 1 linecolor rgb '#77216F' linetype 1 linewidth 2)a,
+      ~w(unset xzeroaxis)a,
+      ~w(unset yzeroaxis)a,
+      ~w(set ytics -1,1)a,
       [
         :plot,
         'sin(x)',
