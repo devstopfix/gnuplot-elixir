@@ -7,18 +7,20 @@ defmodule AtanSin do
 
   def target,
     do: [
-      [:set, :term, :png, :size, '512,256', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
+      [:set, :term, :pngcairo, :size, '512,256', :font, "Fira Sans"],
       [:set, :output, png()]
     ]
 
   def commands,
     do: [
+      ~w(set style line 1 linecolor rgb '#77216F' lw 1)a,
       ~w(set autoscale)a,
       ~w(set samples 800)a,
       [
         :plot,
         -30..20,
-        'sin(x*20)*atan(x)'
+        'sin(x*20)*atan(x)',
+        :ls, 1
       ]
     ]
 
