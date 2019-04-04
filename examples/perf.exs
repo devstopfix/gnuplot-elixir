@@ -7,7 +7,7 @@ defmodule Perf do
 
   def target,
     do: [
-      [:set, :term, :png, :size, '640,512', :font, "/Library/Fonts/FiraCode-Medium.ttf", 12],
+      [:set, :term, :pngcairo, :size, '640,512', :font, "Source Code Pro,12"],
       [:set, :output, png()]
     ]
 
@@ -19,10 +19,10 @@ defmodule Perf do
       ~w(set key left top)a,
       ~w(set logscale xy)a,
       ~w(set grid xtics ytics)a,
-      ~w(set style line 1 lw 4 lc '#63b132')a,
-      ~w(set style line 2 lw 4 lc '#2C001E')a,
-      ~w(set style line 3 lw 4 lc '#5E2750')a,
-      ~w(set style line 4 lw 4 lc '#E95420')a,
+      ~w(set style line 1 lw 2 lc '#63b132')a,
+      ~w(set style line 2 lw 2 lc '#2C001E')a,
+      ~w(set style line 3 lw 2 lc '#5E2750')a,
+      ~w(set style line 4 lw 2 lc '#E95420')a,
       ~w(set style line 5 lw 4 lc '#77216F')a,
       [
         :plot,
