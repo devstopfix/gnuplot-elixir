@@ -7,7 +7,7 @@ defmodule Sine do
 
   def target,
     do: [
-      [:set, :term, :pngcairo, :size, '512,256' ,:font, "Fira Sans"],
+      [:set, :term, :pngcairo, :size, '512,256', :font, "Fira Sans"],
       [:set, :output, png()]
     ]
 

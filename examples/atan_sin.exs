@@ -20,7 +20,8 @@ defmodule AtanSin do
         :plot,
         -30..20,
         'sin(x*20)*atan(x)',
-        :ls, 1
+        :ls,
+        1
       ]
     ]
 

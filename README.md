@@ -55,7 +55,7 @@ Write two datasets to a PNG file:
 
 ```elixir
 {:ok, _cmd} = G.plot([
-  [:set, :term, :png], 
+  [:set, :term, :png],
   [:set, :output, "/tmp/rand.png"]
   [:set, :title, "rand uniform vs normal"],
   [:set, :key, :left, :top],
@@ -65,8 +65,8 @@ Write two datasets to a PNG file:
       ["-", :title, "normal", :with, :points])]
   ],
   [
-        for(n <- 0..200, do: [n, n * :rand.uniform()]),
-        for(n <- 0..200, do: [n, n * :rand.normal()])
+        for(n <- 0..100, do: [n, n * :rand.uniform()]),
+        for(n <- 0..100, do: [n, n * :rand.normal()])
   ])
 ```
 
