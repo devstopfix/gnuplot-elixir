@@ -117,7 +117,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 1.19.95"}
+    {:gnuplot, "~> 1.19"}
   ]
 end
 ```
