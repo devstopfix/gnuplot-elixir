@@ -52,17 +52,17 @@ The command string sent (`_cmd` above) can be manually inspected should the char
 Write two datasets to a PNG file:
 
 ```elixir
-alias Gnuplot, as: G
+import Gnuplot
 
-{:ok, _cmd} = G.plot([
-  [:set, :term, :png],
+{:ok, _cmd} = plot([
+  [:set, :term, :pngcairo],
   [:set, :output, "/tmp/rand.png"]
   [:set, :title, "rand uniform vs normal"],
   [:set, :key, :left, :top],
-  [:plot,
-    G.list(
+  plots([
       ["-", :title, "uniform", :with, :points],
-      ["-", :title, "normal", :with, :points])]
+      ["-", :title, "normal", :with, :points]
+      ])
   ],
   [
         for(n <- 0..100, do: [n, n * :rand.uniform()]),
@@ -72,7 +72,9 @@ alias Gnuplot, as: G
 
 ![uniform-vs-rand](docs/rand.PNG)
 
-NB When we are plotting multiple datasets in the same plot we need a comma separated list for the `plot` command which is made here with `G.list([ [...], [...], ... ])`
+When we are plotting multiple datasets in the same chart we need a comma separated list for the `plot` command which is made with the `plots`, `splots` or `list` function.
+
+NB the `:png` terminal can also be used but it produces [rougher output](http://www.gnuplotting.org/output-terminals/).
 
 
 ### Plot functions without datasets
@@ -95,6 +97,18 @@ NB [ranges](https://hexdocs.pm/elixir/Range.html) can be used
 
 ![rand](docs/atan_sin.PNG)
 
+### Multiplot
+
+The `multiplot` mode places serveral plots on the same page:
+
+```elixir
+Gnuplot.plot([
+  [:set, :multiplot, :layout, '2,1'], 
+  [:plot, 'sin(x)/x'], 
+  [:plot, 'cos(x)']
+  ])
+```
+
 ## Installation
 
 This library is [available in Hex](https://hex.pm/packages/gnuplot), the package can be installed
@@ -103,7 +117,7 @@ by adding `gnuplot` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 1.19.88"}
+    {:gnuplot, "~> 1.19.95"}
   ]
 end
 ```
@@ -140,8 +154,9 @@ clojure_gui = [1.487, 1.397, 1.400, 1.381, 1.440, 5.784, 49.275]
 elixir_gui  = [0.005, 0.010, 0.004, 0.059, 0.939, 5.801, 43.464]
 elixir_png  = [0.002, 0.010, 0.049, 0.040, 0.349, 4.091, 41.521]
 ubuntu_t2m  = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
-ubuntu_stream = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
-datasets = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip (points, ds)
+ubuntu_strm = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
+datasets = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_strm], do: 
+  Enum.zip(points, ds)
 
 Gnuplot.plot([
   [:set, :title, "Time to render scatter plots"],
@@ -155,14 +170,15 @@ Gnuplot.plot([
   ~w(set style line 3 lw 2 lc '#5E2750')a,
   ~w(set style line 4 lw 2 lc '#E95420')a,
   ~w(set style line 5 lw 4 lc '#77216F')a,
-  [:plot, Gnuplot.list(
+  Gnuplot.plots([
     ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
     ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
     ["-", :title, "Elixir PNG", :with, :lines, :ls, 3],
     ["-", :title, "Elixir t2.m", :with, :lines, :ls, 4],
     ["-", :title, "Elixir Stream", :with, :lines, :ls, 5]
-  )]], datasets
-])
+  ])], 
+  datasets
+)
 ```
 
 ## Credits and licence

@@ -66,6 +66,53 @@ defmodule Gnuplot do
       |> Stream.run()
   end
 
+  @doc """
+  Builds a comma separated list of plot commands that are overlayed in a single plot.
+
+  Only useful inside `plot/1`:
+
+      import Gnuplot
+
+      plot([
+        [:set, :title, "Sine vs Cosine"],
+        plots([
+          ['sin(x)'],
+          ['cos(x)']
+        ])
+      ])
+
+  is equivalent to:
+
+      set title "Sine vs Cosine"
+      plot sin(x),cos(x)
+
+  """
+  @spec plots(list(command())) :: list()
+  def plots(commands) do
+    [:plot, list(commands)]
+  end
+
+  @doc """
+  Build a comma separated list of two or more overlayed 3D plots (as 2D projections).
+
+  Only useful inside `plot/1`:
+
+      import Gnuplot
+
+      plot([
+        [:set, :grid],
+        splots([
+          ['x**2+y**2'],
+          ['x**2-y**2']
+        ])
+      ])
+
+  """
+  @spec splots(list(command())) :: list()
+  def splots(commands) do
+    [:splot, list(commands)]
+  end
+
   @doc "Build a comma separated list from a list of terms."
   def list(xs) when is_list(xs), do: %Commands.List{xs: xs}
 

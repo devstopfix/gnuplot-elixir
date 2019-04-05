@@ -1,5 +1,5 @@
 defmodule Perf do
-  alias Gnuplot, as: G
+  import Gnuplot
 
   @moduledoc false
 
@@ -24,16 +24,13 @@ defmodule Perf do
       ~w(set style line 3 lw 2 lc '#5E2750')a,
       ~w(set style line 4 lw 2 lc '#E95420')a,
       ~w(set style line 5 lw 4 lc '#77216F')a,
-      [
-        :plot,
-        G.list(
-          ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
-          ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
-          ["-", :title, "Elixir PNG", :with, :lines, :ls, 3],
-          ["-", :title, "Elixir t2.m", :with, :lines, :ls, 4],
-          ["-", :title, "Elixir Stream", :with, :lines, :ls, 5]
-        )
-      ]
+      plots([
+        ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
+        ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
+        ["-", :title, "Elixir PNG", :with, :lines, :ls, 3],
+        ["-", :title, "Elixir t2.m", :with, :lines, :ls, 4],
+        ["-", :title, "Elixir Stream", :with, :lines, :ls, 5]
+      ])
     ]
 
   def data do
@@ -48,8 +45,8 @@ defmodule Perf do
         do: Enum.zip(points, ds)
   end
 
-  def plot, do: G.plot(target() ++ commands(), data())
+  def draw, do: plot(target() ++ commands(), data())
 end
 
 # mix run examples/perf.exs
-Perf.plot()
+{:ok, _} = Perf.draw()

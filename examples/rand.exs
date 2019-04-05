@@ -1,5 +1,5 @@
 defmodule Rand do
-  alias Gnuplot, as: G
+  import Gnuplot
 
   @moduledoc false
 
@@ -16,13 +16,10 @@ defmodule Rand do
       ~w(set key left top)a,
       ~w(set style line 1 lc rgb '#77216F' pt 13)a,
       ~w(set style line 2 lc rgb '#599B2B' pt 2)a,
-      [
-        :plot,
-        G.list(
-          ["-", :title, "uniform", :with, :points, :ls, 1],
-          ["-", :title, "normal", :with, :points, :ls, 2]
-        )
-      ]
+      plots([
+        ["-", :title, "uniform", :with, :points, :ls, 1],
+        ["-", :title, "normal", :with, :points, :ls, 2]
+      ])
     ]
 
   def data,
@@ -31,8 +28,8 @@ defmodule Rand do
       for(n <- 0..99, do: [n, n * :rand.normal()])
     ]
 
-  def plot, do: G.plot(target() ++ commands(), data())
+  def draw, do: plot(target() ++ commands(), data())
 end
 
 # mix run examples/rand.exs
-Rand.plot()
+{:ok, _} = Rand.draw()

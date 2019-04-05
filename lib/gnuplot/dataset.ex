@@ -1,7 +1,7 @@
 defmodule Gnuplot.Dataset do
   @moduledoc false
 
-  @type point :: list(number()) | tuple()
+  @type point :: list(number() | String.t()) | tuple()
   @type t :: list(point())
 
   @gnuplot_end_row "\n"
@@ -37,6 +37,7 @@ defmodule Gnuplot.Dataset do
 
   defp to_str(f) when is_float(f), do: Float.to_string(f)
   defp to_str(i) when is_integer(i), do: Integer.to_string(i)
+
   defp to_str(s) when is_binary(s) do
     if contains_space?(s) do
       "\"" <> s <> "\""

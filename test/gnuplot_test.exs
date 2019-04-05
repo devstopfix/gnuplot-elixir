@@ -77,17 +77,45 @@ defmodule GnuplotTest do
     plot = [
       [:set, :xrange, -3..3],
       [:set, :yrange, -3..3],
-      [:splot, 'sin(x) * cos(y)']
+      G.splots([['x**2+y**2'], ['x**2-y**2']])
     ]
 
-    expected = "set xrange [-3:3];\nset yrange [-3:3];\nsplot sin(x) * cos(y)"
+    expected = "set xrange [-3:3];\nset yrange [-3:3];\nsplot x**2+y**2,x**2-y**2"
     assert {:ok, expected} == G.plot(plot)
   end
 
   test "Strings with spaces in datasets" do
     input = [[0, "label", 100], [1, "label2", 450], [2, "bar label", 75]]
     expected = ["0 label 100", "\n", "1 label2 450", "\n", "2 \"bar label\" 75", "\ne\n"]
+
     assert expected ==
              [input] |> D.format_datasets() |> Enum.to_list()
+  end
+
+  test "Multiplot with two plot(s)" do
+    input = [[:set, :multiplot, :layout, '2,1'], [:plot, 'sin(x)'], [:plot, 'cos(x)']]
+    expected = "set multiplot layout 2,1;\nplot sin(x);\nplot cos(x)"
+
+    assert expected == C.format(input)
+  end
+
+  test "Multiplot with plots" do
+    input = [[:set, :multiplot, :layout, '2,1'], G.plots([['sin(x)'], ['cos(x)']])]
+    expected = "set multiplot layout 2,1;\nplot sin(x),cos(x)"
+
+    assert expected == C.format(input)
+  end
+
+  test "Multiplot with list" do
+    input = [[:set, :multiplot, :layout, '2,1'], [:plot, G.list([['sin(x)'], ['cos(x)']])]]
+    expected = "set multiplot layout 2,1;\nplot sin(x),cos(x)"
+
+    assert expected == C.format(input)
+  end
+
+  test "Splots" do
+    input = G.splots([['x**2+y**2'], ['x**2-y**2']])
+    expected = "splot x**2+y**2,x**2-y**2"
+    assert expected == C.format([input])
   end
 end
