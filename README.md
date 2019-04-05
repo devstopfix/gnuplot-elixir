@@ -2,7 +2,7 @@
 
 A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] that uses [Erlang Ports][5] to transmit data from your application to Gnuplot. Datasets are streamed directly to STDIN without temporary files and you can plot [1M points in 12.7 seconds](examples/stress.exs).
 
-Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
+Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo_5.3/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
 
@@ -34,10 +34,8 @@ A dataset is a list of points, each point is a list of numbers. A dataset can be
 Lets compare the distributions of the [Erlang rand functions](http://erlang.org/doc/man/rand.html):
 
 ```elixir
-alias Gnuplot, as: G
-
 dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
-{:ok, _cmd} = G.plot([
+{:ok, _cmd} = Gnuplot.plot([
   [:set, :title, "rand uniform vs normal"],
   [:plot, "-", :with, :points]
   ], [dataset])
@@ -54,6 +52,8 @@ The command string sent (`_cmd` above) can be manually inspected should the char
 Write two datasets to a PNG file:
 
 ```elixir
+alias Gnuplot, as: G
+
 {:ok, _cmd} = G.plot([
   [:set, :term, :png],
   [:set, :output, "/tmp/rand.png"]
@@ -78,13 +78,13 @@ NB When we are plotting multiple datasets in the same plot we need a comma separ
 ### Plot functions without datasets
 
 ```elixir
-G.plot([[:plot, 'sin(x)', :title, "Sine Wave"]])
+Gnuplot.plot([[:plot, 'sin(x)', :title, "Sine Wave"]])
 ```
 
 ![rand](docs/sine.PNG)
 
 ```elixir
-G.plot([
+Gnuplot.plot([
         ~w(set autoscale)a,
         ~w(set samples 800)a,
         [:plot, -30..20, 'sin(x*20)*atan(x)']
@@ -143,7 +143,7 @@ ubuntu_t2m  = [0.004, 0.002, 0.001, 0.008, 0.211, 1.873, 19.916]
 ubuntu_stream = [0.002, 0.001, 0.001, 0.009, 0.204, 1.279, 12.858]
 datasets = for ds <- [clojure_gui, elixir_gui, elixir_png, ubuntu_t2m, ubuntu_stream], do: Enum.zip (points, ds)
 
-G.plot([
+Gnuplot.plot([
   [:set, :title, "Time to render scatter plots"],
   [:set, :xlabel, "Points in plot"],
   [:set, :ylabel, "Elapsed (s)"],
@@ -155,7 +155,7 @@ G.plot([
   ~w(set style line 3 lw 2 lc '#5E2750')a,
   ~w(set style line 4 lw 2 lc '#E95420')a,
   ~w(set style line 5 lw 4 lc '#77216F')a,
-  [:plot, G.list(
+  [:plot, Gnuplot.list(
     ["-", :title, "Clojure GUI", :with, :lines, :ls, 1],
     ["-", :title, "Elixir GUI", :with, :lines, :ls, 2],
     ["-", :title, "Elixir PNG", :with, :lines, :ls, 3],
