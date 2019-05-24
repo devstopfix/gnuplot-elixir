@@ -89,11 +89,13 @@ defmodule GnuplotTest do
     plot = [~w(set terminal pngcairo)a, ~w(set output)a, [:plot, 'sin(x)', :title, "Sine Wave"]]
     assert {:ok, _} = G.plot(plot, [])
 
-    data? = receive do
-      {_, {:data, _}} -> :data
-    after
-      1_000 -> :timeout
-    end
+    data? =
+      receive do
+        {_, {:data, _}} -> :data
+      after
+        1_000 -> :timeout
+      end
+
     assert :data == data?
   end
 

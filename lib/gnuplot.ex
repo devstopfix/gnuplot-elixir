@@ -53,11 +53,13 @@ defmodule Gnuplot do
          args = ["-p", "-e", cmd],
          port = Port.open({:spawn_executable, path}, [:binary, :exit_status, args: args]) do
       transmit(port, datasets)
+
       receive do
         {_, {:exit_status, _}} -> :ok
       after
         @timeout -> :timeout
       end
+
       {_, :close} = send(port, {self(), :close})
       {:ok, cmd}
     end
