@@ -84,6 +84,19 @@ defmodule GnuplotTest do
     assert {:ok, expected} == G.plot(plot)
   end
 
+  @tag gnuplot: true
+  test "Capture output" do
+    plot = [~w(set terminal pngcairo)a, ~w(set output)a, [:plot, 'sin(x)', :title, "Sine Wave"]]
+    assert {:ok, _} = G.plot(plot, [])
+
+    data? = receive do
+      {_, {:data, _}} -> :data
+    after
+      1_000 -> :timeout
+    end
+    assert :data == data?
+  end
+
   test "Strings with spaces in datasets" do
     input = [[0, "label", 100], [1, "label2", 450], [2, "bar label", 75]]
     expected = ["0 label 100", "\n", "1 label2 450", "\n", "2 \"bar label\" 75", "\ne\n"]
