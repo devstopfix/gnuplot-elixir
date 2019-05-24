@@ -1,11 +1,14 @@
 language: elixir
 
 elixir:
-  - 1.8.1
-  - 1.6.0
+  - 1.8.2
+  - 1.7
+  - 1.6
 
 before_script:
+  - mix compile –warnings-as-errors
   - mix credo --strict
+  - if [[ "$TRAVIS_ELIXIR_VERSION" =~ "1.8" ]]; then mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted; fi
   # - mix dialyzer
 
 script: mix test --exclude gnuplot:true
@@ -14,4 +17,4 @@ script: mix test --exclude gnuplot:true
 # cache:
 #   directories:
 #     - _build
-#     - deps  
+#     - deps
