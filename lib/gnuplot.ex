@@ -48,21 +48,20 @@ defmodule Gnuplot do
   @timeout 1_000
   @spec plot(list(command()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
   def plot(commands, datasets) do
-    with {:ok, path} = gnuplot_bin(),
-         cmd = Commands.format(commands),
-         args = ["-p", "-e", cmd],
-         port = Port.open({:spawn_executable, path}, [:binary, :exit_status, args: args]) do
-      transmit(port, datasets)
+    {:ok, path} = gnuplot_bin()
+    cmd = Commands.format(commands)
+    args = ["-p", "-e", cmd]
+    port = Port.open({:spawn_executable, path}, [:binary, :exit_status, args: args])
+    transmit(port, datasets)
 
-      receive do
-        {_, {:exit_status, _}} -> :ok
-      after
-        @timeout -> :timeout
-      end
-
-      {_, :close} = send(port, {self(), :close})
-      {:ok, cmd}
+    receive do
+      {_, {:exit_status, _}} -> :ok
+    after
+      @timeout -> :timeout
     end
+
+    {_, :close} = send(port, {self(), :close})
+    {:ok, cmd}
   end
 
   @spec transmit(port(), list(Dataset.t())) :: :ok
