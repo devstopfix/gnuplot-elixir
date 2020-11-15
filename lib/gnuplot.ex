@@ -74,7 +74,7 @@ defmodule Gnuplot do
     result
   end
 
-  defp timeout() do
+  defp timeout do
     {t, :ms} = Application.get_env(:gnuplot, :timeout, 10_000)
     t
   end
