@@ -4,7 +4,7 @@ A simple interface from [Elixir data][7] to the [Gnuplot graphing utility][1] th
 
 Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo_5.3/) to see all the possibilities, the [manual which describes the grammar](http://www.gnuplot.info/docs_5.2/Gnuplot_5.2.pdf), and the [examples folder](examples/).
 
-This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library can also be [called from Erlang](docs/erlang.md) and has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
+This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
 
 [![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir)
 [![Hex.pm](https://img.shields.io/hexpm/v/gnuplot.svg?style=flat-square)](https://hex.pm/packages/gnuplot)
@@ -45,7 +45,7 @@ Gnuplot will by default open a window containing your plot:
 
 ![rand](docs/gnuplot.PNG)
 
-The command string sent (`_cmd` above) can be manually inspected should the chart not appear as you expected.
+The command string sent (`_cmd` above) can be manually inspected should the chart not appear as you expected. If the chart is not drawn due to an error then the result will be `{:error, cmd, errors}`.
 
 ### PNG of two datasets
 
@@ -111,18 +111,15 @@ Gnuplot.plot([
 
 ## Installation
 
-This library is [available in Hex](https://hex.pm/packages/gnuplot), the package can be installed
-by adding `gnuplot` to your list of dependencies in `mix.exs`:
+This library is [available in Hex](https://hex.pm/packages/gnuplot) with [documentation](https://hexdocs.pm/gnuplot/Gnuplot.html) and the package can be installed by adding `gnuplot` to your project:
 
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 1.19"}
+    {:gnuplot, "~> 1.20"}
   ]
 end
 ```
-
-Documentation can found at [hexdocs.pm/gnuplot](https://hexdocs.pm/gnuplot/Gnuplot.html).
 
 ## Testing
 
@@ -185,7 +182,7 @@ Gnuplot.plot([
 
 Original design ©2015 [Kyle Kingsbury][2].
 
-Elixir code ©2019 [DEVSTOPFIX LTD][3]. Contributions from [piisgaaf](https://github.com/piisgaaf)
+Elixir code ©2020 [DEVSTOPFIX LTD][3]. Contributions from [piisgaaf](https://github.com/piisgaaf)
 
 Distributed under the [Eclipse Public License v2][6].
 

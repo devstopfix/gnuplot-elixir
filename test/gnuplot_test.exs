@@ -85,18 +85,11 @@ defmodule GnuplotTest do
   end
 
   @tag gnuplot: true
-  test "Capture output" do
-    plot = [~w(set terminal pngcairo)a, ~w(set output)a, [:plot, 'sin(x)', :title, "Sine Wave"]]
-    assert {:ok, _} = G.plot(plot, [])
-
-    data? =
-      receive do
-        {_, {:data, _}} -> :data
-      after
-        1_000 -> :timeout
-      end
-
-    assert :data == data?
+  test "Error stdout" do
+    dataset = for _ <- 1..3, do: [:rand.uniform(), :rand.normal()]
+    plot = [[:plot, "-", :with, :trapezoids]]
+    assert {:error, _, [error]} = G.plot(plot, [dataset])
+    assert error =~ "unrecognized plot type"
   end
 
   test "Strings with spaces in datasets" do

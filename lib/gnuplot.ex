@@ -33,7 +33,8 @@ defmodule Gnuplot do
   @doc """
   Transmit commands without dataset.
   """
-  @spec plot(list(command())) :: {:ok, String.t()} | {:error, term()}
+  @spec plot(list(command())) ::
+          {:ok, String.t()} | {:error, String.t(), list(String.t())} | :timeout
   def plot(commands), do: plot(commands, [])
 
   @doc """
@@ -45,23 +46,37 @@ defmodule Gnuplot do
       {:ok, "plot \"-\" with lines"}
 
   """
-  @timeout 1_000
-  @spec plot(list(command()), list(Dataset.t())) :: {:ok, String.t()} | {:error, term()}
+  @spec plot(list(command()), list(Dataset.t())) ::
+          {:ok, String.t()} | {:error, String.t(), list(String.t())} | :timeout
   def plot(commands, datasets) do
     {:ok, path} = gnuplot_bin()
     cmd = Commands.format(commands)
     args = ["-p", "-e", cmd]
-    port = Port.open({:spawn_executable, path}, [:binary, :exit_status, args: args])
-    transmit(port, datasets)
 
-    receive do
-      {_, {:exit_status, _}} -> :ok
-    after
-      @timeout -> :timeout
-    end
+    port =
+      Port.open({:spawn_executable, path}, [:binary, :exit_status, :stderr_to_stdout, args: args])
+
+    transmit(port, datasets)
+    loop(port, cmd)
+  end
+
+  defp loop(port, cmd, output \\ []) do
+    result =
+      receive do
+        {_, {:data, message}} -> loop(port, cmd, [message | output])
+        {_, {:exit_status, 0}} -> {:ok, cmd}
+        {_, {:exit_status, _}} -> {:error, cmd, Enum.reverse(output)}
+      after
+        timeout() -> :timeout
+      end
 
     {_, :close} = send(port, {self(), :close})
-    {:ok, cmd}
+    result
+  end
+
+  defp timeout() do
+    {t, :ms} = Application.get_env(:gnuplot, :timeout, 10_000)
+    t
   end
 
   @spec transmit(port(), list(Dataset.t())) :: :ok
