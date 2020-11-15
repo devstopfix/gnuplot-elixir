@@ -88,8 +88,8 @@ defmodule GnuplotTest do
   test "Error stdout" do
     dataset = for _ <- 1..3, do: [:rand.uniform(), :rand.normal()]
     plot = [[:plot, "-", :with, :trapezoids]]
-    assert {:error, _, [error]} = G.plot(plot, [dataset])
-    assert error =~ "unrecognized plot type"
+    assert {:error, _, errors} = G.plot(plot, [dataset])
+    assert Enum.join(errors) =~ "unrecognized plot type"
   end
 
   test "Strings with spaces in datasets" do
