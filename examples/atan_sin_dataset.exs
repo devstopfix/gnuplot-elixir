@@ -3,7 +3,7 @@ defmodule AtanSin do
 
   @moduledoc "http://gnuplot.sourceforge.net/demo/simple.7.gnu"
 
-  def png, do: Path.join("docs", "atan_sin_dataset.PNG")
+  def png, do: Path.join("assets", "atan_sin_dataset.png")
 
   def target,
     do: [

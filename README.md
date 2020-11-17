@@ -7,8 +7,11 @@ Please visit the [Gnuplot demos gallery](http://gnuplot.sourceforge.net/demo_5.3
 This is a conversion of the [Clojure Gnuplot library][4] by [aphyr][2]. This library has been tested on OS X, Ubuntu 16.04 and CentOS 7.6.
 
 [![Build Status](https://travis-ci.org/devstopfix/gnuplot-elixir.svg?branch=master)](https://travis-ci.org/devstopfix/gnuplot-elixir)
-[![Hex.pm](https://img.shields.io/hexpm/v/gnuplot.svg?style=flat-square)](https://hex.pm/packages/gnuplot)
-[![API Docs](https://img.shields.io/badge/api-docs-MediumPurple.svg?style=flat)](https://hexdocs.pm/gnuplot/Gnuplot.html)
+[![Module Version](https://img.shields.io/hexpm/v/gnuplot.svg)](https://hex.pm/packages/gnuplot)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/gnuplot/)
+[![Total Download](https://img.shields.io/hexpm/dt/gnuplot.svg)](https://hex.pm/packages/gnuplot)
+[![License](https://img.shields.io/hexpm/l/gnuplot.svg)](https://github.com/yyy/gnuplot/blob/master/LICENSE)
+[![Last Updated](https://img.shields.io/github/last-commit/devstopfix/gnuplot-elixir.svg)](https://github.com/devstopfix/gnuplot-elixir/commits/master)
 ![Platforms](https://img.shields.io/badge/platform-osx%7Cubuntu%7Ccentos-black.svg)
 
 ## Usage
@@ -43,7 +46,7 @@ dataset = for _ <- 0..1000, do: [:rand.uniform(), :rand.normal()]
 
 Gnuplot will by default open a window containing your plot:
 
-![rand](docs/gnuplot.PNG)
+![rand](assets/gnuplot.png)
 
 The command string sent (`_cmd` above) can be manually inspected should the chart not appear as you expected. If the chart is not drawn due to an error then the result will be `{:error, cmd, errors}`.
 
@@ -70,7 +73,7 @@ import Gnuplot
   ])
 ```
 
-![uniform-vs-rand](docs/rand.PNG)
+![uniform-vs-rand](assets/rand.png)
 
 When we are plotting multiple datasets in the same chart we need a comma separated list for the `plot` command which is made with the `plots`, `splots` or `list` function.
 
@@ -83,7 +86,7 @@ NB the `:png` terminal can also be used but it produces [rougher output](http://
 Gnuplot.plot([[:plot, 'sin(x)', :title, "Sine Wave"]])
 ```
 
-![rand](docs/sine.PNG)
+![rand](assets/sine.png)
 
 ```elixir
 Gnuplot.plot([
@@ -95,7 +98,7 @@ Gnuplot.plot([
 
 NB [ranges](https://hexdocs.pm/elixir/Range.html) can be used
 
-![rand](docs/atan_sin.PNG)
+![rand](assets/atan_sin.png)
 
 ### Multiplot
 
@@ -111,7 +114,7 @@ Gnuplot.plot([
 
 ## Installation
 
-This library is [available in Hex](https://hex.pm/packages/gnuplot) with [documentation](https://hexdocs.pm/gnuplot/Gnuplot.html) and the package can be installed by adding `gnuplot` to your project:
+Add `:gnuplot` to the project `mix.exs` file:
 
 ```elixir
 def deps do
@@ -143,7 +146,7 @@ The performance of the library on a MacBook Air is comparable to the Clojure ver
 |        |     MacBook |    MacBook |    MacBook |  Ubuntu 16.04 |  Ubuntu 16.04 |
 |        |  2.5 GHz i5 | 2.5 GHz i5 | 2.5 GHz i5 | 3.3 GHz 2vCPU | 3.3 GHz 2vCPU |
 
-![performance](docs/perf.PNG)
+![performance](assets/perf.png)
 
 ```elixir
 points      = [1, 10, 100, 1_000, 10_000, 100_000, 1_000_000]
