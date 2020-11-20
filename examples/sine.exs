@@ -3,7 +3,7 @@ defmodule Sine do
 
   @moduledoc "http://gnuplot.sourceforge.net/demo/simple.7.gnu"
 
-  def png, do: Path.join("docs", "sine.PNG")
+  def png, do: Path.join("assets", "sine.png")
 
   def target,
     do: [

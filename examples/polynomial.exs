@@ -5,7 +5,7 @@ defmodule Polynomial do
   https://en.wikipedia.org/wiki/Polynomial#Graphs
   """
 
-  def png, do: Path.join("/tmp/", "polynomial.PNG")
+  def png, do: Path.join("/tmp/", "polynomial.png")
 
   def target,
     do: [

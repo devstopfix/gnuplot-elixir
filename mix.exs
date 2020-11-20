@@ -1,6 +1,8 @@
 defmodule Gnuplot.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/devstopfix/gnuplot-elixir"
+
   def project do
     [
       app: :gnuplot,
@@ -9,13 +11,13 @@ defmodule Gnuplot.MixProject do
       start_permanent: Mix.env() == :prod,
       description: "Interface between Elixir and Gnuplot graphing library",
       deps: deps(),
+      docs: docs(),
       dialyzer: [
         flags: [],
         plt_add_apps: [:mix],
         remove_defaults: [:unknown]
       ],
-      package: package(),
-      source_url: "https://github.com/devstopfix/gnuplot-elixir"
+      package: package()
     ]
   end
 
@@ -39,10 +41,21 @@ defmodule Gnuplot.MixProject do
       maintainers: ["James Every"],
       licenses: ["EPL-2.0"],
       links: %{
-        "GitHub" => "https://github.com/devstopfix/gnuplot-elixir",
+        "GitHub" => @source_url,
         "Gnuplot" => "http://www.gnuplot.info/",
         "Travis CI" => "https://travis-ci.org/devstopfix/gnuplot-elixir"
       }
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      assets: "assets",
+      source_url: @source_url,
+      extras: [
+        "README.md"
+      ]
     ]
   end
 end

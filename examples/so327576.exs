@@ -6,7 +6,7 @@ defmodule BarChart do
   def run do
     chart = [
       [:set, :term, :png, :size, '512,512'],
-      [:set, :output, Path.join("/tmp", "barchart.PNG")],
+      [:set, :output, Path.join("/tmp", "barchart.png")],
       [:set, :boxwidth, 0.5],
       ~w(set style fill solid)a,
       [:plot, "-", :using, '1:3:xtic(2)', :with, :boxes]

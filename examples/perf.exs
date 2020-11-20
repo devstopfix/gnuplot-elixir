@@ -3,7 +3,7 @@ defmodule Perf do
 
   @moduledoc false
 
-  def png, do: Path.join("docs", "perf.PNG")
+  def png, do: Path.join("assets", "perf.png")
 
   def target,
     do: [

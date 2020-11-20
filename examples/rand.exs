@@ -3,7 +3,7 @@ defmodule Rand do
 
   @moduledoc false
 
-  def png, do: Path.join("docs", "rand.PNG")
+  def png, do: Path.join("assets", "rand.png")
 
   def target,
     do: [

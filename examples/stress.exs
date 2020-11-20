@@ -3,7 +3,7 @@ defmodule Stress do
 
   @moduledoc "https://github.com/aphyr/gnuplot/blob/master/test/gnuplot/core_test.clj#L24"
 
-  def png(n), do: Path.join("/tmp", "stress" <> to_string(n) <> ".PNG")
+  def png(n), do: Path.join("/tmp", "stress" <> to_string(n) <> ".png")
 
   def target(n),
     do: [
