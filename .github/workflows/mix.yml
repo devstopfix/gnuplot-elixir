@@ -19,6 +19,7 @@ jobs:
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
       - run: mix credo --strict
-      - run: mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted
-          if: 1 == 2 #${{ startsWith(matrix.elixir, '1.11') }}
+      - name: Format
+        run: mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted
+        if: 1 == 2 #${{ startsWith(matrix.elixir, '1.11') }}
       - run: mix test --exclude gnuplot:true
