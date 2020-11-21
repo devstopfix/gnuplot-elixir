@@ -1,12 +1,6 @@
 name: mix
 
-on:
-  push:
-    branches:
-      - '*'
-  pull_request:
-    branches:
-      - '*'
+on: [push, pull_request]
 
 jobs:
   build:
@@ -22,8 +16,12 @@ jobs:
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
+      - env:
+          TRAVIS_ELIXIR_VERSION: ${{matrix.elixir}}
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
       - run: mix credo --strict
-      - run: if [[ "$TRAVIS_ELIXIR_VERSION" =~ "1.11" ]]; then mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted; fi
+      - run: env | sort
+      - name: Format
+        run: if [[ "$TRAVIS_ELIXIR_VERSION" =~ "1.11" ]]; then mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted; fi
       - run: mix test --exclude gnuplot:true
