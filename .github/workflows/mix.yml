@@ -19,9 +19,7 @@ jobs:
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
       - run: mix credo --strict
-      - run: env | sort
       - name: Format
-        env:
-          TRAVIS_ELIXIR_VERSION: ${{matrix.elixir}}
-        run: if [[ "$TRAVIS_ELIXIR_VERSION" =~ "1.11" ]]; then mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted; fi
+        run: mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted
+          if: ${{ startsWith(matrix.elixir, '1.11') }}
       - run: mix test --exclude gnuplot:true
