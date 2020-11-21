@@ -11,7 +11,7 @@ otp_release:
   - '22.3.4'
 
 before_script:
-  - mix compile –warnings-as-errors
+  - mix compile --warnings-as-errors
   - mix credo --strict
   - if [[ "$TRAVIS_ELIXIR_VERSION" =~ "1.11" ]]; then mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted; fi
   # - mix dialyzer
