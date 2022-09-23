@@ -28,5 +28,5 @@ jobs:
       - run: mix credo --strict
       - name: "Check formatted?"
         run: mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted
-        if: ${{ startsWith(matrix.elixir, '1.11') }}
+        if: ${{ startsWith(matrix.elixir, '1.14') }}
       - run: mix test --exclude gnuplot:true
