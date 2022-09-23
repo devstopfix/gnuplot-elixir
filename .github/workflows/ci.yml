@@ -13,6 +13,9 @@ jobs:
         exclude:
           - elixir: "1.10.4"
             otp: "24.3.4"
+        include:
+          - elixir: "1.14"
+            otp: "25.1"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-elixir@v1
