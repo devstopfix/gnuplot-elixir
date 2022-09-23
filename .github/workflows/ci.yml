@@ -8,18 +8,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        otp: ['22.3.4']
-        elixir: ['1.11', '1.10.4', '1.9.4', '1.8.2', '1.7.4']
+        otp: ["23.3.4", "24.3.4"]
+        elixir: ["1.14", "1.13", "1.12", "1.11.4", "1.10.4"]
+        exclude:
+          - elixir: "1.10.4"
+            otp: "24.3.4"
+        include:
+          - elixir: "1.14"
+            otp: "25.1"
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-elixir@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
+          experimental-otp: true
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
       - run: mix credo --strict
       - name: "Check formatted?"
         run: mix format mix.exs "examples/*.exs" "lib/**/*.{ex,exs}" "test/**/*.exs" --check-formatted
-        if: ${{ startsWith(matrix.elixir, '1.11') }}
+        if: ${{ startsWith(matrix.elixir, '1.14') }}
       - run: mix test --exclude gnuplot:true

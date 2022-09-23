@@ -116,7 +116,7 @@ This library is [available in Hex](https://hex.pm/packages/gnuplot) with [docume
 ```elixir
 def deps do
   [
-    {:gnuplot, "~> 1.20"}
+    {:gnuplot, "~> 1.22"}
   ]
 end
 ```
@@ -182,7 +182,7 @@ Gnuplot.plot([
 
 Original design ©2015 [Kyle Kingsbury][2].
 
-Elixir code ©2020 [DEVSTOPFIX LTD][3]. Contributions from [piisgaaf](https://github.com/piisgaaf)
+Elixir code ©2022 [DEVSTOPFIX LTD][3]. Contributions from [piisgaaf](https://github.com/piisgaaf)
 
 Distributed under the [Eclipse Public License v2][6].
 
