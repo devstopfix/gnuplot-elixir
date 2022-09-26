@@ -35,9 +35,7 @@ defmodule Gnuplot.Commands do
   defimpl Command, for: List do
     @spec formatg(maybe_improper_list()) :: binary()
     def formatg(xs = [x | _]) when is_atom(x) or is_binary(x) do
-      xs
-      |> Enum.map(fn cmd -> Command.formatg(cmd) end)
-      |> Enum.join(" ")
+      Enum.map_join(xs, " ", &Command.formatg/1)
     end
 
     def formatg(xs), do: List.to_string(xs)
@@ -54,9 +52,7 @@ defmodule Gnuplot.Commands do
 
   defimpl Command, for: List do
     def formatg(%{xs: xs}) do
-      xs
-      |> Enum.map(fn cmd -> Command.formatg(cmd) end)
-      |> Enum.join(",")
+      Enum.map_join(xs, ",", &Command.formatg/1)
     end
   end
 
@@ -65,8 +61,6 @@ defmodule Gnuplot.Commands do
   """
   @spec format(list(list())) :: String.t()
   def format(cmds) do
-    cmds
-    |> Enum.map(fn cmd -> Command.formatg(cmd) end)
-    |> Enum.join(";\n")
+    Enum.map_join(cmds, ";\n", &Command.formatg/1)
   end
 end

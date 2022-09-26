@@ -30,9 +30,7 @@ defmodule Gnuplot.Dataset do
   end
 
   defp format_point(point) do
-    point
-    |> Enum.map(&to_str/1)
-    |> Enum.join(" ")
+    Enum.map_join(point, " ", &to_str/1)
   end
 
   defp to_str(f) when is_float(f), do: Float.to_string(f)
