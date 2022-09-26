@@ -75,8 +75,10 @@ defmodule Gnuplot do
   end
 
   defp timeout do
-    {t, :ms} = Application.get_env(:gnuplot, :timeout, {10_000, :ms})
-    t
+    case Application.get_env(:gnuplot, :timeout, {10_000, :ms}) do
+      {t, :ms} -> t
+      t when is_integer(t) -> t
+    end
   end
 
   @spec transmit(port(), list(Dataset.t())) :: :ok
