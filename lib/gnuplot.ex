@@ -30,6 +30,8 @@ defmodule Gnuplot do
 
   @type command :: nonempty_list(command_term())
 
+  @timeout Application.compile_env(:gnuplot, :timeout, {10_000, :ms})
+
   @doc """
   Transmit commands without dataset.
   """
@@ -75,7 +77,7 @@ defmodule Gnuplot do
   end
 
   defp timeout do
-    case Application.get_env(:gnuplot, :timeout, {10_000, :ms}) do
+    case @timeout do
       {t, :ms} -> t
       t when is_integer(t) -> t
     end
