@@ -18,11 +18,10 @@ jobs:
             otp: "25.1"
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-elixir@v1
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
-          experimental-otp: true
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
       - run: mix credo --strict
